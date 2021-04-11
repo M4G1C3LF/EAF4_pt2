@@ -1,0 +1,49 @@
+{"frames": [
+    {
+        "filename": "player/idle1",
+        "frame": {"x":0,"y":0,"w":16,"h":32},
+        "rotated": false,
+        "trimmed": false,
+        "spriteSourceSize": {"x":0,"y":0,"w":32,"h":72},
+        "sourceSize": {"w":32,"h":72}
+    },
+    {
+        "filename": "player/idle2",
+        "frame": {"x":17,"y":0,"w":16,"h":32},
+        "rotated": false,
+        "trimmed": false,
+        "spriteSourceSize": {"x":0,"y":0,"w":32,"h":72},
+        "sourceSize": {"w":32,"h":72}
+    },
+    {
+        "filename": "player/move1",
+        "frame": {"x":0,"y":33,"w":16,"h":32},
+        "rotated": false,
+        "trimmed": false,
+        "spriteSourceSize": {"x":0,"y":0,"w":32,"h":72},
+        "sourceSize": {"w":32,"h":72}
+    },
+    {
+        "filename": "player/move2",
+        "frame": {"x":17,"y":33,"w":16,"h":32},
+        "rotated": false,
+        "trimmed": false,
+        "spriteSourceSize": {"x":0,"y":0,"w":32,"h":72},
+        "sourceSize": {"w":32,"h":72}
+    },
+    {
+        "filename": "player/crouch",
+        "frame": {"x":65,"y":0,"w":16,"h":32},
+        "rotated": false,
+        "trimmed": false,
+        "spriteSourceSize": {"x":0,"y":0,"w":32,"h":72},
+        "sourceSize": {"w":32,"h":72}
+    }],
+    "meta": {
+        "version": "1.0",
+        "image": "player.png",
+        "size": {"w":32,"h":72},
+        "scale": "1"
+    }
+}
+    
