@@ -1,4 +1,5 @@
 //import makeAnimations from '../helpers/animations';
+import spriteSheet from '../assets/sprites/player.png';
 
 class BootScene extends Phaser.Scene {
     constructor(test) {
@@ -24,6 +25,14 @@ class BootScene extends Phaser.Scene {
             progress.destroy();
             this.scene.start('MainScene');
         });
+        this.load.spritesheet(
+            'playerSpritesheet', 
+            spriteSheet,
+            {
+                frameWidth: 16,
+                frameHeight: 24
+            }
+        );
         // Beginning of an atlas to replace the spritesheets above. Always use spriteatlases. I use TexturePacker to prepare them.
         // Check rawAssets folder for the TexturePacker project I use to prepare these files.
         this.load.atlas('player', 'assets/sprites/player.png', 'assets/sprites/player.json');

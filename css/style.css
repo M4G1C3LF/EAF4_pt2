@@ -1,6 +1,6 @@
 .container {
-   
+
 }
 .container > canvas {
-
+    width: 100%;
 }
