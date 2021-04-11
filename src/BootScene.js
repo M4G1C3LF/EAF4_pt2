@@ -1,5 +1,5 @@
 //import makeAnimations from '../helpers/animations';
-import spriteSheet from '../assets/sprites/player.png';
+import spriteSheet from './Player/sprites/player.png';
 
 class BootScene extends Phaser.Scene {
     constructor(test) {
@@ -35,7 +35,7 @@ class BootScene extends Phaser.Scene {
         );
         // Beginning of an atlas to replace the spritesheets above. Always use spriteatlases. I use TexturePacker to prepare them.
         // Check rawAssets folder for the TexturePacker project I use to prepare these files.
-        this.load.atlas('player', 'assets/sprites/player.png', 'assets/sprites/player.json');
+        this.load.atlas('player', './Player/sprites/player.png', './Player/sprites/player.json');
 /*
         // Music to play. It's not properly edited for an continous loop, but game play experience isn't really the aim of this repository either.
         this.load.audio('overworld', [

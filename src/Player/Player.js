@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
-import spriteSheet from '../assets/sprites/player.png';
+import spriteSheet from './sprites/player.png';
 
-export default class Player extends Phaser.GameObjects.Sprite{
+class Player extends Phaser.GameObjects.Sprite{
 
     constructor (config) {
         console.log("constructor!");
@@ -11,6 +11,8 @@ export default class Player extends Phaser.GameObjects.Sprite{
         console.log("Added to scene!");
     }
 
+    
+    
     preload () {
         console.log("preload!");
        /* this.load.spritesheet(
@@ -56,14 +58,31 @@ export default class Player extends Phaser.GameObjects.Sprite{
 
     }
 }
-/*
-const config = {
-    type: Phaser.AUTO,
-    parent: 'MyGame',
-    width: 16,
-    height: 24,
-    scene: Player
-};
 
-const player = new Phaser.Scene(config);
-*/
+function createPlayer(scene) {
+    scene.player = new Player({
+        scene: scene,
+        key: 'player',
+        x: 16,
+        y: 16
+    });
+    scene.anims.create({
+        key: 'idle',
+        frames: scene.anims.generateFrameNames('playerSpritesheet',{start: 0, end: 1}),
+        frameRate: 10,
+        repeat: -1
+    });
+    scene.anims.create({
+        key: 'move',
+        frames: scene.anims.generateFrameNames('playerSpritesheet',{start: 2, end: 3}),
+        frameRate: 10,
+        repeat: -1
+    });
+    scene.anims.create({
+        key: 'crouch',
+        frames: scene.anims.generateFrameNames('playerSpritesheet',{start: 5, end: 5}),
+        frameRate: 10,
+        repeat: -1
+    });
+}
+export { Player, createPlayer}
