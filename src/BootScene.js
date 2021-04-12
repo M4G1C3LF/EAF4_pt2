@@ -1,4 +1,5 @@
-import spriteSheet from './Player/sprites/player.png';
+import playerSpriteSheet from './Player/sprites/player.png';
+import tileSpriteSheet from './Tile/sprites/tileSheet.png';
 
 class BootScene extends Phaser.Scene {
     constructor(test) {
@@ -14,14 +15,24 @@ class BootScene extends Phaser.Scene {
 
         this.load.spritesheet(
             'playerSpritesheet', 
-            spriteSheet,
+            playerSpriteSheet,
             {
                 frameWidth: 16,
                 frameHeight: 24
             }
         );
-        //Load Atlas to player key
+        this.load.spritesheet(
+            'tileSpritesheet', 
+            tileSpriteSheet,
+            {
+                frameWidth: 16,
+                frameHeight: 16
+            }
+        );
+        //Load Atlas to 'player' key
         this.load.atlas('player', './Player/sprites/player.png', './Player/sprites/player.json');
+        //Load Atlas to 'tile' key
+        this.load.atlas('tile', './Tile/sprites/tileSheet.png', './Tile/sprites/tileSheet.json');
     }
 }
 

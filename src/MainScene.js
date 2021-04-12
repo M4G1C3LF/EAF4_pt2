@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { createPlayer } from './Player/Player';
+import { createTile, printTileSheet } from './Tile/Tile';
 
 export default class MainScene extends Phaser.Scene{
 
@@ -7,11 +8,12 @@ export default class MainScene extends Phaser.Scene{
         super({
             key: 'MainScene'
         });
+        this.tileMap = [];
     }
     preload () {
         
     }
-      
+    
     create () {
         // Register input keys 
         this.keys = {
@@ -21,6 +23,8 @@ export default class MainScene extends Phaser.Scene{
         };
         // populate this.player
         createPlayer(this);
+        printTileSheet(this, 50,50);
+        
     }
 
     update() {
