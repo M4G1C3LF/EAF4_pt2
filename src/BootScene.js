@@ -1,4 +1,4 @@
-//import makeAnimations from '../helpers/animations';
+import spriteSheet from './Player/sprites/player.png';
 
 class BootScene extends Phaser.Scene {
     constructor(test) {
@@ -7,26 +7,29 @@ class BootScene extends Phaser.Scene {
         });
     }
     preload() {
-        
-        const progress = this.add.graphics();
-
-        // Register a load progress event to show a load bar
-        this.load.on('progress', (value) => {
-            progress.clear();
-            progress.fillStyle(0xffffff, 1);
-            progress.fillRect(0, this.sys.game.config.height / 2, this.sys.game.config.width * value, 60);
-        });
-
         // Register a load complete event to launch the title screen when all files are loaded
         this.load.on('complete', () => {
-            // prepare all animations, defined in a separate file
-            //makeAnimations(this);
-            progress.destroy();
             this.scene.start('MainScene');
         });
-        // Beginning of an atlas to replace the spritesheets above. Always use spriteatlases. I use TexturePacker to prepare them.
-        // Check rawAssets folder for the TexturePacker project I use to prepare these files.
-        this.load.atlas('player', 'assets/sprites/player.png', 'assets/sprites/player.json');
+
+        this.load.spritesheet(
+            'playerSpritesheet', 
+            spriteSheet,
+            {
+                frameWidth: 16,
+                frameHeight: 24
+            }
+        );
+        //Load Atlas to player key
+        this.load.atlas('player', './Player/sprites/player.png', './Player/sprites/player.json');
+    }
+}
+
+export default BootScene;
+
+
+
+
 /*
         // Music to play. It's not properly edited for an continous loop, but game play experience isn't really the aim of this repository either.
         this.load.audio('overworld', [
@@ -47,7 +50,3 @@ class BootScene extends Phaser.Scene {
         // This json contain recorded gamep
         this.load.json('attractMode', 'assets/json/attractMode.json');
         */
-    }
-}
-
-export default BootScene;
