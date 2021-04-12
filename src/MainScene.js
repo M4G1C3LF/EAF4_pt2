@@ -19,39 +19,13 @@ export default class MainScene extends Phaser.Scene{
         
         this.player.play("idle");
 
+
         this.keys = {
             left: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A),
             right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
             crouch: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S)
         };
         
-        /*this.keys.crouch.addListener('onKeyDown', e => {
-            console.log(e);
-        })
-        this.keys.crouch.onDown(e => {
-            console.log(e)
-            this.player.play("crouch");
-        })
-        this.keys.crouch.onUp(e => {
-            this.player.play("idle");
-        })*/
-        
-/*
-        sprite.on('pointerdown', function () {
-
-            this.setTint(Math.random() * 16000000);
-    
-            text.setText('DOWN');
-    
-        });
-    
-        sprite.on('pointerup', function () {
-    
-            text.setText('UP');
-    
-        });
-
-        */
     }
 
     update() {
