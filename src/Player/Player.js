@@ -92,5 +92,7 @@ function createPlayer(scene) {
         frameRate: 10,
         repeat: -1
     });
+    scene.player.play("idle");
+
 }
 export { Player, createPlayer }
