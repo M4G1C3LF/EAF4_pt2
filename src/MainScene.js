@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { createPlayer } from './Player/Player';
-import { createTile, printTileSheet, tileSize } from './Tile/Tile';
+import { createTile,  tileSize } from './Tile/Tile';
+import { createCollectableItem } from './CollectableItem/CollectableItem';
 
 export default class MainScene extends Phaser.Scene{
 
@@ -132,14 +133,19 @@ export default class MainScene extends Phaser.Scene{
         };
         //Create static group to fill in all map tiles
         this.tiles = this.physics.add.staticGroup();
-        
-        this.createMap(this);
+        //Create static group to fill in all collectable items
+        this.collectableItems = this.physics.add.staticGroup();
+        this.items = [];
 
+        this.createMap(this);
         // populate this.player
         createPlayer(this,250,0);
-        
+        createCollectableItem(this,(tileSize.x*11),(tileSize.y*3))
+        createCollectableItem(this,(tileSize.x*3),(tileSize.y*2))
+        createCollectableItem(this,(tileSize.x*18),(tileSize.y*7))
+        createCollectableItem(this,(tileSize.x*2),(tileSize.y*7))
         //Generate collider and user callback when player collides against a tile
-        this.physics.add.collider(this.player,this.tiles, (e => {
+       this.physics.add.collider(this.player,this.tiles, (e => {
             this.player.canJump = true;
         }))
 

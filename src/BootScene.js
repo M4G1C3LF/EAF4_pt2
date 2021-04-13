@@ -1,5 +1,6 @@
 import playerSpriteSheet from './Player/sprites/player.png';
 import tileSpriteSheet from './Tile/sprites/tileSheet.png';
+import collectableItemSpriteSheet from './CollectableItem/sprites/spriteSheet.png';
 
 class BootScene extends Phaser.Scene {
     constructor(test) {
@@ -29,10 +30,21 @@ class BootScene extends Phaser.Scene {
                 frameHeight: 16
             }
         );
+        this.load.spritesheet(
+            'collectableItemSpritesheet', 
+            collectableItemSpriteSheet,
+            {
+                frameWidth: 16,
+                frameHeight: 16
+            }
+        );
         //Load Atlas to 'player' key
         this.load.atlas('player', './Player/sprites/player.png', './Player/sprites/player.json');
         //Load Atlas to 'tile' key
         this.load.atlas('tile', './Tile/sprites/tileSheet.png', './Tile/sprites/tileSheet.json');
+        //Load Atlas to 'collectableItem' key
+        this.load.atlas('collectableItem', './CollectableItem/sprites/spriteSheet.png', './CollectableItem/sprites/spriteSheet.json');
+
     }
 }
 
