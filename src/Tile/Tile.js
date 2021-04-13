@@ -4,10 +4,11 @@ export default class Tile extends Phaser.GameObjects.Sprite{
         super(config.scene, config.x, config.y, config.key);
         
         config.scene.add.existing(this);
-        
+
     }
     
 }
+const tileSize = { x: 16, y: 16 };
 
 function createAnimations(scene){
     //DIRT
@@ -304,6 +305,8 @@ function createAnimations(scene){
         repeat: 0
     });
 }
+
+
 function createTile(scene,x,y,spriteKey) {
     const tile = new Tile({
         scene: scene,
@@ -314,11 +317,9 @@ function createTile(scene,x,y,spriteKey) {
     createAnimations(scene);
     scene.tileMap.push(tile);
     tile.play(spriteKey);
-    
-
 }
+
 function printTileSheet(scene,x,y) {
-    const tileSize = { x: 16, y: 16 };
 
     createTile(scene,x,y,"dirt/plain");
     createTile(scene,x+tileSize.x,y,"dirt/leftBorder");
@@ -371,4 +372,4 @@ function printTileSheet(scene,x,y) {
     createTile(scene,x+(tileSize.x*14),y+(tileSize.y*2),"sand/bottomLeftRightBorder");
     createTile(scene,x+(tileSize.x*15),y+(tileSize.y*2),"sand/allBorders");
 }
-export { Tile, createTile, printTileSheet }
+export { Tile, createTile, printTileSheet, tileSize }
