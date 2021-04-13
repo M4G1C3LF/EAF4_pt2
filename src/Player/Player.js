@@ -120,7 +120,11 @@ class Player extends Phaser.GameObjects.Sprite{
         this.keyHandler(scene);  
     }
 }
-
+function generateCollider(scene){
+    scene.physics.add.collider(scene.player,scene.tiles, (e => {
+        scene.player.canJump = true;
+    }))
+}
 function createPlayer(scene,x,y) {
     scene.player = new Player({
         scene: scene,
@@ -148,5 +152,6 @@ function createPlayer(scene,x,y) {
     });
     scene.player.play("idle");
 
+    generateCollider(scene);
 }
 export { Player, createPlayer }

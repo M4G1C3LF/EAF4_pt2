@@ -124,30 +124,33 @@ export default class MainScene extends Phaser.Scene{
         this.createEastWall(scene,(tileSize.x*19),(tileSize.y*6));
 
     }
-    create () {
+    registerKeyInput(){
         // Register input keys 
         this.keys = {
             left: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A),
             right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
             crouch: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S)
         };
+    }
+    createGroups(){
         //Create static group to fill in all map tiles
         this.tiles = this.physics.add.staticGroup();
         //Create static group to fill in all collectable items
         this.collectableItems = this.physics.add.staticGroup();
-        this.items = [];
-
+    }
+    create () {
+        this.registerKeyInput();
+        this.createGroups();
         this.createMap(this);
         // populate this.player
+        
         createPlayer(this,250,0);
+
         createCollectableItem(this,(tileSize.x*11),(tileSize.y*3))
         createCollectableItem(this,(tileSize.x*3),(tileSize.y*2))
         createCollectableItem(this,(tileSize.x*18),(tileSize.y*7))
         createCollectableItem(this,(tileSize.x*2),(tileSize.y*7))
-        //Generate collider and user callback when player collides against a tile
-       this.physics.add.collider(this.player,this.tiles, (e => {
-            this.player.canJump = true;
-        }))
+       
 
     }
 
