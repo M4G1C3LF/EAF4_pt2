@@ -138,7 +138,6 @@ export default class MainScene extends Phaser.Scene{
             console.log("my collider callback");
         }))
 
-
     }
 
     update() {

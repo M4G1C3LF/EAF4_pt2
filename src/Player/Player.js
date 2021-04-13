@@ -6,7 +6,7 @@ class Player extends Phaser.GameObjects.Sprite{
         config.scene.add.existing(this);
         this.body.setSize(16,24)
 
-        this.speed = 1;
+        this.speed = 100;
         
     }
     // Method that store the inputs given
@@ -16,6 +16,17 @@ class Player extends Phaser.GameObjects.Sprite{
             right: keys.right.isDown,
             crouch: keys.crouch.isDown
         } 
+    }
+    move(scene,speed,direction){
+        if (direction == 'right')
+            scene.player.body.velocity.x = speed;
+            //scene.player.body.x += (speed);
+        if (direction == 'left')
+            scene.player.body.velocity.x = -speed;
+            //scene.player.body.x -= (speed);
+    }
+    stop(scene){
+        scene.player.body.velocity.x = 0;
     }
     // Method to handle user's input
     keyHandler(scene){
@@ -40,14 +51,17 @@ class Player extends Phaser.GameObjects.Sprite{
         // ON HOLD LEFT
         if(keys.left.isDown && !keys.left.isUp && this.prevKeys.left){
             if(!keys.crouch.isDown){
-                scene.player.body.x += (-this.speed);
+                this.move(scene,this.speed,"left");
             } else {
-                scene.player.body.x += (-this.speed/2);
+                this.move(scene,this.speed/2,"left");
             }
         }
         // ON RELEASE LEFT
-        if(!keys.left.isDown && this.prevKeys.left && !keys.crouch.isDown ){
-            scene.player.play("idle");
+        if(!keys.left.isDown && this.prevKeys.left ){
+            this.stop(scene);
+            if (!keys.crouch.isDown){
+                scene.player.play("idle");
+            }
 
         }
         // ON PRESS RIGHT
@@ -60,14 +74,20 @@ class Player extends Phaser.GameObjects.Sprite{
         // ON HOLD RIGHT
         if(keys.right.isDown && !keys.right.isUp && this.prevKeys.right){
             if(!keys.crouch.isDown){
-                scene.player.body.x += (this.speed);
+                this.move(scene,this.speed,"right");
+
             } else {
-                scene.player.body.x += (this.speed/2);
+                this.move(scene,this.speed/2,"right");
+
             }
         }
         // ON RELEASE RIGHT
-        if(!keys.right.isDown && this.prevKeys.right && !keys.crouch.isDown ){
-            scene.player.play("idle");
+        if(!keys.right.isDown && this.prevKeys.right ){
+            this.stop(scene);
+            if (!keys.crouch.isDown){
+                scene.player.play("idle");
+            }
+            
 
         }
         // ON PRESS DOWN
