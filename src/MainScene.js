@@ -138,7 +138,14 @@ export default class MainScene extends Phaser.Scene{
         //Create static group to fill in all collectable items
         this.collectableItems = this.physics.add.staticGroup();
     }
+    SetBGM(){
+        this.music = this.sound.add('whitenoise');
+        this.music.play({
+            loop: true
+        });
+    }
     create () {
+        this.SetBGM();
         this.registerKeyInput();
         this.createGroups();
         this.createMap(this);

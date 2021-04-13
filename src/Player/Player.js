@@ -9,7 +9,10 @@ class Player extends Phaser.GameObjects.Sprite{
 
         this.speed = 100;
         this.jumpForce = 150;
-        
+        this.sfxList = {
+            jump: null,
+            pickUp: null
+        }
     }
     // Method that store the inputs given
     savePreviousKeyInput(keys){
@@ -33,6 +36,7 @@ class Player extends Phaser.GameObjects.Sprite{
     jump(scene){
         if (this.canJump){
             scene.player.body.velocity.y = -this.jumpForce;
+            scene.player.sfxList.jump.play();
         }
         this.canJump = false;
     }
@@ -125,6 +129,15 @@ function generateCollider(scene){
         scene.player.canJump = true;
     }))
 }
+
+
+function setSfx(scene){
+    
+    scene.player.sfxList.jump = scene.sound.add('jump');
+    scene.player.sfxList.pickUp = scene.sound.add('pickUp');
+}
+
+
 function createPlayer(scene,x,y) {
     scene.player = new Player({
         scene: scene,
@@ -153,5 +166,6 @@ function createPlayer(scene,x,y) {
     scene.player.play("idle");
 
     generateCollider(scene);
+    setSfx(scene);
 }
 export { Player, createPlayer }
