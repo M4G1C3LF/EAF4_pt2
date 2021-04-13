@@ -93,12 +93,12 @@ class Player extends Phaser.GameObjects.Sprite{
     }
 }
 
-function createPlayer(scene) {
+function createPlayer(scene,x,y) {
     scene.player = new Player({
         scene: scene,
         key: 'player',
-        x: 16,
-        y: 16
+        x,
+        y
     });
     scene.anims.create({
         key: 'idle',

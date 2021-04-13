@@ -9,9 +9,9 @@ export default class MainScene extends Phaser.Scene{
             key: 'MainScene'
         });
         this.tileMap = [];
+        
     }
     preload () {
-        
     }
 
     createFloor(scene,x,y){
@@ -130,8 +130,14 @@ export default class MainScene extends Phaser.Scene{
             crouch: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S)
         };
         // populate this.player
+        this.tiles = this.physics.add.staticGroup();
         this.createMap(this);
-        createPlayer(this);
+        createPlayer(this,50,0);
+        
+        this.physics.add.collider(this.player,this.tiles, (e => {
+            console.log("my collider callback");
+        }))
+
 
     }
 

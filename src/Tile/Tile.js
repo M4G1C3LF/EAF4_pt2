@@ -2,8 +2,8 @@ import Phaser from 'phaser';
 export default class Tile extends Phaser.GameObjects.Sprite{
     constructor (config) {
         super(config.scene, config.x, config.y, config.key);
+        config.scene.tiles.add(this,true);
         
-        config.scene.add.existing(this);
 
     }
     
@@ -318,7 +318,6 @@ function createTile(scene,x,y,spriteKey) {
     scene.tileMap.push(tile);
     tile.play(spriteKey);
 }
-
 function printTileSheet(scene,x,y) {
 
     createTile(scene,x,y,"dirt/plain");
