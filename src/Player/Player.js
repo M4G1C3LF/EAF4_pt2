@@ -7,6 +7,7 @@ class Player extends Phaser.GameObjects.Sprite{
         this.body.setSize(16,24)
 
         this.speed = 100;
+        this.jumpForce = 150;
         
     }
     // Method that store the inputs given
@@ -27,6 +28,12 @@ class Player extends Phaser.GameObjects.Sprite{
     }
     stop(scene){
         scene.player.body.velocity.x = 0;
+    }
+    jump(scene){
+        if (this.canJump){
+            scene.player.body.velocity.y = -this.jumpForce;
+        }
+        this.canJump = false;
     }
     // Method to handle user's input
     keyHandler(scene){
@@ -96,6 +103,7 @@ class Player extends Phaser.GameObjects.Sprite{
         }
         // ON RELEASE DOWN
         if(!keys.crouch.isDown && this.prevKeys.crouch){
+            this.jump(scene);
             if (keys.left.isDown){
                 scene.player.play("move");
             } else if (keys.right.isDown){

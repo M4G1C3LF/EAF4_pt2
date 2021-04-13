@@ -135,7 +135,7 @@ export default class MainScene extends Phaser.Scene{
         createPlayer(this,250,0);
         
         this.physics.add.collider(this.player,this.tiles, (e => {
-            console.log("my collider callback");
+            this.player.canJump = true;
         }))
 
     }
