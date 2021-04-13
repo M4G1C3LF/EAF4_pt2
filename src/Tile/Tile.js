@@ -2,13 +2,11 @@ import Phaser from 'phaser';
 export default class Tile extends Phaser.GameObjects.Sprite{
     constructor (config) {
         super(config.scene, config.x, config.y, config.key);
-        config.scene.tiles.add(this,true);
-
-        this.body.setSize(tileSize.x/2, tileSize.y/2)
-        this.body.x += tileSize.x/2;
         
+        config.scene.tiles.add(this,true);
+        this.body.setSize(tileSize.x/2, tileSize.y)
+        this.body.x += tileSize.x/2;
     }
-    
 }
 const tileSize = { x: 16, y: 16 };
 
@@ -317,7 +315,6 @@ function createTile(scene,x,y,spriteKey) {
         y
     })
     createAnimations(scene);
-    scene.tileMap.push(tile);
     tile.play(spriteKey);
 }
 function printTileSheet(scene,x,y) {

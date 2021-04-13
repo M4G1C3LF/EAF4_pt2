@@ -8,7 +8,6 @@ export default class MainScene extends Phaser.Scene{
         super({
             key: 'MainScene'
         });
-        this.tileMap = [];
         
     }
     preload () {
@@ -116,6 +115,8 @@ export default class MainScene extends Phaser.Scene{
     createMap(scene){
         this.createFloor(scene,0,(tileSize.y*8));   
         this.createPlatform(scene,(tileSize.x*3),(tileSize.y*6),"rock");
+
+
         this.createPlatform(scene,(tileSize.x*11),(tileSize.y*4),"dirt");
         this.createPlatform(scene,(tileSize.x*15),(tileSize.y*3),"sand");
         this.createWestWall(scene,0,(tileSize.y*6));
@@ -129,11 +130,15 @@ export default class MainScene extends Phaser.Scene{
             right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
             crouch: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S)
         };
-        // populate this.player
+        //Create static group to fill in all map tiles
         this.tiles = this.physics.add.staticGroup();
+        
         this.createMap(this);
+
+        // populate this.player
         createPlayer(this,250,0);
         
+        //Generate collider and user callback when player collides against a tile
         this.physics.add.collider(this.player,this.tiles, (e => {
             this.player.canJump = true;
         }))

@@ -2,9 +2,10 @@ import Phaser from 'phaser';
 class Player extends Phaser.GameObjects.Sprite{
     constructor (config) {
         super(config.scene, config.x, config.y, config.key);
+        
         config.scene.physics.world.enable(this);
         config.scene.add.existing(this);
-        this.body.setSize(16,24)
+        this.body.setSize(16,17)
 
         this.speed = 100;
         this.jumpForce = 150;
@@ -94,8 +95,6 @@ class Player extends Phaser.GameObjects.Sprite{
             if (!keys.crouch.isDown){
                 scene.player.play("idle");
             }
-            
-
         }
         // ON PRESS DOWN
         if(keys.crouch.isDown && !this.prevKeys.crouch){
