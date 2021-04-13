@@ -3,8 +3,10 @@ export default class Tile extends Phaser.GameObjects.Sprite{
     constructor (config) {
         super(config.scene, config.x, config.y, config.key);
         config.scene.tiles.add(this,true);
-        
 
+        this.body.setSize(tileSize.x/2, tileSize.y/2)
+        this.body.x += tileSize.x/2;
+        
     }
     
 }

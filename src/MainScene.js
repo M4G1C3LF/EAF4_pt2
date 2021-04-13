@@ -114,9 +114,9 @@ export default class MainScene extends Phaser.Scene{
     }
 
     createMap(scene){
-        this.createFloor(scene,0,(tileSize.y*8));
+        this.createFloor(scene,0,(tileSize.y*8));   
         this.createPlatform(scene,(tileSize.x*3),(tileSize.y*6),"rock");
-        this.createPlatform(scene,(tileSize.x*10),(tileSize.y*4),"dirt");
+        this.createPlatform(scene,(tileSize.x*11),(tileSize.y*4),"dirt");
         this.createPlatform(scene,(tileSize.x*15),(tileSize.y*3),"sand");
         this.createWestWall(scene,0,(tileSize.y*6));
         this.createEastWall(scene,(tileSize.x*19),(tileSize.y*6));
@@ -132,7 +132,7 @@ export default class MainScene extends Phaser.Scene{
         // populate this.player
         this.tiles = this.physics.add.staticGroup();
         this.createMap(this);
-        createPlayer(this,50,0);
+        createPlayer(this,250,0);
         
         this.physics.add.collider(this.player,this.tiles, (e => {
             console.log("my collider callback");
