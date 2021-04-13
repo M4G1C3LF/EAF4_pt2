@@ -9,12 +9,12 @@ const config = {
     roundPixels: false,
     parent: 'content',
     width: 300,
-    height: 300,
+    height: 150,
     physics: {
         default: 'arcade',
         arcade: {
             gravity: {
-                y: 0
+                y: 300
             },
             debug: false
         }
@@ -28,3 +28,4 @@ const config = {
 const game = new Phaser.Game(config);
 
 
+    

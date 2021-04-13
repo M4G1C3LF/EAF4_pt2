@@ -2,10 +2,13 @@ import Phaser from 'phaser';
 class Player extends Phaser.GameObjects.Sprite{
     constructor (config) {
         super(config.scene, config.x, config.y, config.key);
+        
         config.scene.physics.world.enable(this);
         config.scene.add.existing(this);
-       
-        this.speed = 1;
+        this.body.setSize(16,17)
+
+        this.speed = 100;
+        this.jumpForce = 150;
         
     }
     // Method that store the inputs given
@@ -15,6 +18,23 @@ class Player extends Phaser.GameObjects.Sprite{
             right: keys.right.isDown,
             crouch: keys.crouch.isDown
         } 
+    }
+    move(scene,speed,direction){
+        if (direction == 'right')
+            scene.player.body.velocity.x = speed;
+            //scene.player.body.x += (speed);
+        if (direction == 'left')
+            scene.player.body.velocity.x = -speed;
+            //scene.player.body.x -= (speed);
+    }
+    stop(scene){
+        scene.player.body.velocity.x = 0;
+    }
+    jump(scene){
+        if (this.canJump){
+            scene.player.body.velocity.y = -this.jumpForce;
+        }
+        this.canJump = false;
     }
     // Method to handle user's input
     keyHandler(scene){
@@ -39,14 +59,17 @@ class Player extends Phaser.GameObjects.Sprite{
         // ON HOLD LEFT
         if(keys.left.isDown && !keys.left.isUp && this.prevKeys.left){
             if(!keys.crouch.isDown){
-                scene.player.body.x += (-this.speed);
+                this.move(scene,this.speed,"left");
             } else {
-                scene.player.body.x += (-this.speed/2);
+                this.move(scene,this.speed/2,"left");
             }
         }
         // ON RELEASE LEFT
-        if(!keys.left.isDown && this.prevKeys.left && !keys.crouch.isDown ){
-            scene.player.play("idle");
+        if(!keys.left.isDown && this.prevKeys.left ){
+            this.stop(scene);
+            if (!keys.crouch.isDown){
+                scene.player.play("idle");
+            }
 
         }
         // ON PRESS RIGHT
@@ -59,15 +82,19 @@ class Player extends Phaser.GameObjects.Sprite{
         // ON HOLD RIGHT
         if(keys.right.isDown && !keys.right.isUp && this.prevKeys.right){
             if(!keys.crouch.isDown){
-                scene.player.body.x += (this.speed);
+                this.move(scene,this.speed,"right");
+
             } else {
-                scene.player.body.x += (this.speed/2);
+                this.move(scene,this.speed/2,"right");
+
             }
         }
         // ON RELEASE RIGHT
-        if(!keys.right.isDown && this.prevKeys.right && !keys.crouch.isDown ){
-            scene.player.play("idle");
-
+        if(!keys.right.isDown && this.prevKeys.right ){
+            this.stop(scene);
+            if (!keys.crouch.isDown){
+                scene.player.play("idle");
+            }
         }
         // ON PRESS DOWN
         if(keys.crouch.isDown && !this.prevKeys.crouch){
@@ -75,6 +102,7 @@ class Player extends Phaser.GameObjects.Sprite{
         }
         // ON RELEASE DOWN
         if(!keys.crouch.isDown && this.prevKeys.crouch){
+            this.jump(scene);
             if (keys.left.isDown){
                 scene.player.play("move");
             } else if (keys.right.isDown){
@@ -93,12 +121,12 @@ class Player extends Phaser.GameObjects.Sprite{
     }
 }
 
-function createPlayer(scene) {
+function createPlayer(scene,x,y) {
     scene.player = new Player({
         scene: scene,
         key: 'player',
-        x: 16,
-        y: 16
+        x,
+        y
     });
     scene.anims.create({
         key: 'idle',
