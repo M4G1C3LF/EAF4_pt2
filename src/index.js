@@ -1,39 +1,31 @@
 import Phaser from 'phaser';
-import logoImg from './assets/logo.png';
-
-class MyGame extends Phaser.Scene
-{
-    constructor ()
-    {
-        super();
-    }
-
-    preload ()
-    {
-        this.load.image('logo', logoImg);
-    }
-      
-    create ()
-    {
-        const logo = this.add.image(400, 150, 'logo');
-      
-        this.tweens.add({
-            targets: logo,
-            y: 450,
-            duration: 2000,
-            ease: "Power2",
-            yoyo: true,
-            loop: -1
-        });
-    }
-}
+import MainScene from './MainScene';
+import BootScene from './BootScene';
 
 const config = {
-    type: Phaser.AUTO,
-    parent: 'phaser-example',
-    width: 800,
-    height: 600,
-    scene: MyGame
+    // For more settings see <https://github.com/photonstorm/phaser/blob/master/src/boot/Config.js>
+    type: Phaser.WEBGL,
+    pixelArt: true,
+    roundPixels: false,
+    parent: 'content',
+    width: 300,
+    height: 150,
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: {
+                y: 300
+            },
+            debug: false
+        }
+    },
+    scene: [
+        BootScene,
+        MainScene
+    ]
 };
 
 const game = new Phaser.Game(config);
+
+
+    
