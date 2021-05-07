@@ -5,7 +5,9 @@ class Player extends Phaser.GameObjects.Sprite{
         
         config.scene.physics.world.enable(this);
         config.scene.add.existing(this);
-        this.body.setSize(16,17)
+        this.body.setSize(16,17,true);
+
+        //this.body.setBounceY(0.4)
 
         this.speed = 100;
         this.jumpForce = 150;
@@ -39,6 +41,11 @@ class Player extends Phaser.GameObjects.Sprite{
             scene.player.sfxList.jump.play();
         }
         this.canJump = false;
+    }
+    setBodySize(weight,height,colliderWeight,colliderHeight){
+
+            this.body.setSize(16,17,true)
+            this.body.setOffset(8,7);
     }
     // Method to handle user's input
     keyHandler(scene){
@@ -102,11 +109,16 @@ class Player extends Phaser.GameObjects.Sprite{
         }
         // ON PRESS DOWN
         if(keys.crouch.isDown && !this.prevKeys.crouch){
-            scene.player.play("crouch");
+            scene.player.play("crouch");            
+            this.body.setSize(16,10,true);
+            this.body.setOffset(8,13);
+            //this.body.setBoundsRectangle(new Phaser.Geom.Rectangle(0,7,16,10));
         }
         // ON RELEASE DOWN
         if(!keys.crouch.isDown && this.prevKeys.crouch){
             this.jump(scene);
+
+            //this.body.
             if (keys.left.isDown){
                 scene.player.play("move");
             } else if (keys.right.isDown){
@@ -114,6 +126,10 @@ class Player extends Phaser.GameObjects.Sprite{
             } else {
                 scene.player.play("idle");
             }
+            //this.body.setBoundsRectangle(new Phaser.Geom.Rectangle(0,0,16,17));
+
+            this.body.setSize(16,17,true)
+            this.body.setOffset(8,5);
         }
 
         // The last thing we do is storing keys pressed on this frame.
