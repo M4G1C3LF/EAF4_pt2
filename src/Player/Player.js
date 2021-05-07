@@ -42,6 +42,11 @@ class Player extends Phaser.GameObjects.Sprite{
         }
         this.canJump = false;
     }
+    setBodySize(weight,height,colliderWeight,colliderHeight){
+
+            this.body.setSize(16,17,true)
+            this.body.setOffset(8,7);
+    }
     // Method to handle user's input
     keyHandler(scene){
         const { keys } = scene;
@@ -108,6 +113,7 @@ class Player extends Phaser.GameObjects.Sprite{
                     
             this.body.setSize(16,10,true);
             this.body.setOffset(8,13);
+
         }
         // ON RELEASE DOWN
         if(!keys.crouch.isDown && this.prevKeys.crouch){
