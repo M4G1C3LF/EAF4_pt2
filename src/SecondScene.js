@@ -25,12 +25,7 @@ export default class SecondScene extends Phaser.Scene{
         console.log(this.scene.key)
         if(!this.gameState.scenes[this.scene.key]){
             this.gameState.scenes[this.scene.key] = {
-                items: [
-                    false,
-                    false,
-                    false,
-                    false
-                ]
+                items: []
             }
         }
         console.log(JSON.stringify(this.gameState))
@@ -64,10 +59,10 @@ export default class SecondScene extends Phaser.Scene{
         createTile(scene,x+(tileSize.x*9),y,"sand/topBorder");
         createTile(scene,x+(tileSize.x*10),y,"sand/topBorder");
         createTile(scene,x+(tileSize.x*11),y,"sand/topBorder");
-        createTile(scene,x+(tileSize.x*12),y,"sand/plain");
+/*        createTile(scene,x+(tileSize.x*12),y,"sand/plain");
         createTile(scene,x+(tileSize.x*13),y,"sand/plain");
         createTile(scene,x+(tileSize.x*14),y,"sand/plain");
-        createTile(scene,x+(tileSize.x*15),y,"sand/plain");
+        createTile(scene,x+(tileSize.x*15),y,"sand/plain");*/
         createTile(scene,x+(tileSize.x*16),y,"rock/plain");
         createTile(scene,x+(tileSize.x*17),y,"rock/plain");
         createTile(scene,x+(tileSize.x*18),y,"rock/plain");
@@ -84,11 +79,11 @@ export default class SecondScene extends Phaser.Scene{
         createTile(scene,x+(tileSize.x*8),y+tileSize.y,"dirt/plain");
         createTile(scene,x+(tileSize.x*9),y+tileSize.y,"sand/plain");
         createTile(scene,x+(tileSize.x*10),y+tileSize.y,"sand/plain");
-        createTile(scene,x+(tileSize.x*11),y+tileSize.y,"sand/plain");
+        /*createTile(scene,x+(tileSize.x*11),y+tileSize.y,"sand/plain");
         createTile(scene,x+(tileSize.x*12),y+tileSize.y,"sand/plain");
         createTile(scene,x+(tileSize.x*13),y+tileSize.y,"sand/plain");
         createTile(scene,x+(tileSize.x*14),y+tileSize.y,"sand/plain");
-        createTile(scene,x+(tileSize.x*15),y+tileSize.y,"sand/plain");
+        createTile(scene,x+(tileSize.x*15),y+tileSize.y,"sand/plain");*/
         createTile(scene,x+(tileSize.x*16),y+tileSize.y,"rock/plain");
         createTile(scene,x+(tileSize.x*17),y+tileSize.y,"rock/plain");
         createTile(scene,x+(tileSize.x*18),y+tileSize.y,"rock/plain");
@@ -99,6 +94,29 @@ export default class SecondScene extends Phaser.Scene{
         createTile(scene,x,y,`${materialString}/topBottomLeftBorder`);
         createTile(scene,x+tileSize.x,y,`${materialString}/topBottomBorder`);
         createTile(scene,x+(tileSize.x*2),y,`${materialString}/topBottomRightBorder`);
+
+    }
+    createCeiling(scene,x,y){
+        createTile(scene,x+(tileSize.x*1),y+(tileSize.y*0),"dirt/plain");
+        createTile(scene,x+(tileSize.x*2),y+(tileSize.y*0),"dirt/plain");
+        createTile(scene,x+(tileSize.x*3),y+(tileSize.y*0),"dirt/plain");
+        createTile(scene,x+(tileSize.x*4),y+(tileSize.y*0),"dirt/plain");
+        createTile(scene,x+(tileSize.x*5),y+(tileSize.y*0),"dirt/plain");
+        createTile(scene,x+(tileSize.x*6),y+(tileSize.y*0),"dirt/plain");
+        createTile(scene,x+(tileSize.x*7),y+(tileSize.y*0),"dirt/plain");
+        createTile(scene,x+(tileSize.x*8),y+(tileSize.y*0),"dirt/plain");
+        createTile(scene,x+(tileSize.x*9),y+(tileSize.y*0),"dirt/plain");
+        createTile(scene,x+(tileSize.x*10),y+(tileSize.y*0),"dirt/plain");
+        createTile(scene,x+(tileSize.x*11),y+(tileSize.y*0),"dirt/plain");
+        createTile(scene,x+(tileSize.x*12),y+(tileSize.y*0),"dirt/plain");
+        createTile(scene,x+(tileSize.x*13),y+(tileSize.y*0),"dirt/plain");
+        createTile(scene,x+(tileSize.x*14),y+(tileSize.y*0),"dirt/plain");
+        createTile(scene,x+(tileSize.x*15),y+(tileSize.y*0),"dirt/plain");
+        createTile(scene,x+(tileSize.x*16),y+(tileSize.y*0),"dirt/plain");
+        createTile(scene,x+(tileSize.x*17),y+(tileSize.y*0),"dirt/plain");
+        createTile(scene,x+(tileSize.x*18),y+(tileSize.y*0),"dirt/plain");
+        createTile(scene,x+(tileSize.x*19),y+(tileSize.y*0),"dirt/plain");
+        createTile(scene,x+(tileSize.x*20),y+(tileSize.y*0),"dirt/plain");
 
     }
     createWestWall(scene,x,y){
@@ -147,11 +165,11 @@ export default class SecondScene extends Phaser.Scene{
         createTile(scene,x,y-(tileSize.y*6),"dirt/topBorder");
         createTile(scene,x+tileSize.x,y-(tileSize.y*6),"dirt/plain");
         createTile(scene,x+(tileSize.x*2),y-(tileSize.y*6),"dirt/plain");
-
+/*
         createTile(scene,x,y-(tileSize.y*5),"dirt/plain");
         createTile(scene,x+tileSize.x,y-(tileSize.y*5),"dirt/topLeftBorder");
         createTile(scene,x+(tileSize.x*2),y-(tileSize.y*5),"dirt/plain");
-
+      
         createTile(scene,x,y-(tileSize.y*4),"dirt/topRightBorder");
         createTile(scene,x+tileSize.x,y-(tileSize.y*4),"dirt/plain");
         createTile(scene,x+(tileSize.x*2),y-(tileSize.y*4),"dirt/topBorder");
@@ -187,7 +205,7 @@ export default class SecondScene extends Phaser.Scene{
         createTile(scene,x,y-(tileSize.y*4),"dirt/topRightBorder");
         createTile(scene,x+tileSize.x,y-(tileSize.y*4),"dirt/plain");
         createTile(scene,x+(tileSize.x*2),y-(tileSize.y*4),"dirt/topBorder");
-
+*/
         createTile(scene,x,y-(tileSize.y*3),"dirt/plain");
         createTile(scene,x+tileSize.x,y-(tileSize.y*3),"dirt/bottomBorder");
         createTile(scene,x+(tileSize.x*2),y-(tileSize.y*3),"dirt/topLeftBorder");
@@ -205,6 +223,7 @@ export default class SecondScene extends Phaser.Scene{
         createTile(scene,x+(tileSize.x*2),y,"dirt/topBorder");
 
         createSceneChanger(scene,x+tileSize.x*2,y+tileSize.y,"MainScene",this.loadScene, {x: 30, y: 110});
+        createSceneChanger(scene,x+tileSize.x*2,y-(tileSize.y*5),"MainScene",this.loadScene, {x: tileSize.x*1, y: tileSize.y*1});
 
         
     }
@@ -214,10 +233,11 @@ export default class SecondScene extends Phaser.Scene{
         this.createPlatform(scene,(tileSize.x*3),(tileSize.y*6),"rock");
 
 
-        this.createPlatform(scene,(tileSize.x*11),(tileSize.y*4),"dirt");
+        this.createPlatform(scene,(tileSize.x*8),(tileSize.y*4),"dirt");
         this.createPlatform(scene,(tileSize.x*15),(tileSize.y*3),"sand");
         this.createWestWall(scene,0,(tileSize.y*6));
         this.createEastWall(scene,(tileSize.x*18),(tileSize.y*6));
+        this.createCeiling(scene,0,0);
 
     }
     registerKeyInput(){
