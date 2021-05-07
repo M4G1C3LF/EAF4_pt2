@@ -4,23 +4,17 @@ import { createTile,  tileSize } from './Tile/Tile';
 import { createCollectableItem } from './CollectableItem/CollectableItem';
 import { createSceneChanger } from './SceneChanger/SceneChanger';
 
-export default class MainScene extends Phaser.Scene{
+export default class SecondScene extends Phaser.Scene{
 
     constructor () {
         super({
-            key: 'MainScene'
+            key: 'SecondScene'
         });
-
-        //USE IT TO KEEP USING THIS OBJECT AS this ON PASSING METHOD THROUGH PARAMS
-        this.loadScene = this.loadScene.bind(this);
         
     }
     preload () {
     }
 
-    loadScene(sceneId){
-        this.scene.start(sceneId)
-    }
     createFloor(scene,x,y){
         createTile(scene,x,y,"dirt/plain");
         createTile(scene,x+tileSize.x,y,"dirt/plain");
@@ -105,8 +99,8 @@ export default class MainScene extends Phaser.Scene{
         createTile(scene,x+tileSize.x,y,"dirt/topBorder");
         createTile(scene,x+(tileSize.x*2),y,"dirt/topBorder");
 
-        createSceneChanger(scene,x,y+tileSize.y,"MainScene",this.loadScene);
-        
+        createSceneChanger(scene,x,y+tileSize.y,"MainScene");
+        //createTile(scene,x,y+tileSize.y,"dirt/plain");
 
     }
 
@@ -137,7 +131,7 @@ export default class MainScene extends Phaser.Scene{
         this.keys = {
             left: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A),
             right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
-            crouch: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S),
+            crouch: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S)
         };
     }
     createGroups(){
@@ -145,8 +139,6 @@ export default class MainScene extends Phaser.Scene{
         this.tiles = this.physics.add.staticGroup();
         //Create static group to fill in all collectable items
         this.collectableItems = this.physics.add.staticGroup();
-        //Create static group to fill in all SceneChangers
-        this.sceneChangers = this.physics.add.staticGroup();
     }
     SetBGM(){
         this.music = this.sound.add('whitenoise');
