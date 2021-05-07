@@ -11,13 +11,33 @@ export default class MainScene extends Phaser.Scene{
             key: 'MainScene'
         });
 
-        //USE IT TO KEEP USING THIS OBJECT AS this ON PASSING METHOD THROUGH PARAMS
+        //USE IT TO KEEP USING OBJECTS AS this ON PASSING METHOD THROUGH PARAMS
         this.loadScene = this.loadScene.bind(this);
-        
+        this.getItem = this.getItem.bind(this);
+
+        //this.gameState = this.gameState.bind(this);
+    }
+    init(data){
+        this.gameState = data;
+        console.log("INIT")
+        if(!this.gameState[this.scene.key]){
+            this.gameState[this.scene.key] = {
+                items: [
+                    false,
+                    false,
+                    false,
+                    false
+                ]
+            }
+        }
+        console.log(JSON.stringify(this.gameState))
+
     }
     preload () {
     }
-
+    getItem(id){
+        this.gameState[this.scene.key].items[id] = true;
+    }
     loadScene(sceneId){
         this.scene.start(sceneId)
     }
@@ -163,10 +183,12 @@ export default class MainScene extends Phaser.Scene{
         createPlayer(this,250,0);
 
         this.createMap(this);
-        createCollectableItem(this,(tileSize.x*11),(tileSize.y*3))
-        createCollectableItem(this,(tileSize.x*3),(tileSize.y*2))
-        createCollectableItem(this,(tileSize.x*18),(tileSize.y*7))
-        createCollectableItem(this,(tileSize.x*2),(tileSize.y*7))
+        !this.gameState[this.scene.key].items[0] ? createCollectableItem(0,this,(tileSize.x*11),(tileSize.y*3), this.getItem) : null;
+        !this.gameState[this.scene.key].items[1] ? createCollectableItem(1,this,(tileSize.x*3),(tileSize.y*2), this.getItem) : null;
+        !this.gameState[this.scene.key].items[2] ? createCollectableItem(2,this,(tileSize.x*18),(tileSize.y*7), this.getItem) : null;
+        !this.gameState[this.scene.key].items[3] ? createCollectableItem(3,this,(tileSize.x*2),(tileSize.y*7), this.getItem) : null;
+        
+        
        
 
     }
