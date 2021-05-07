@@ -53,18 +53,18 @@ export default class TitleScene extends Phaser.Scene{
 
     }
     startGame(){
-        this.scene.start('MainScene');
+        this.scene.start(
+            'MainScene',
+            {
+                gameState:defaultGameState
+            }
+        );
     }
     create () {
         //this.setBGM();
         this.setSfx();
         this.registerKeyInput();
         this.setGameLogo();
-        
-   
-        
-       
-
     }
 
     update() {
@@ -73,4 +73,10 @@ export default class TitleScene extends Phaser.Scene{
             this.startGame();
         }
     }
+}
+const defaultGameState = {
+    lives: 3,
+    itemsCollected: 0,
+    scenes: [],
+
 }
