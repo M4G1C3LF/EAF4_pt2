@@ -3,6 +3,7 @@ import { createPlayer } from './Player/Player';
 import { createTile,  tileSize } from './Tile/Tile';
 import { createCollectableItem } from './CollectableItem/CollectableItem';
 import { createSceneChanger } from './SceneChanger/SceneChanger';
+import { createEndLevelItem } from './EndLevelItem.js/EndLevelItem';
 
 export default class MainScene extends Phaser.Scene{
 
@@ -199,14 +200,21 @@ export default class MainScene extends Phaser.Scene{
         !this.gameState.scenes[this.scene.key].items[2] ? createCollectableItem(2,this,(tileSize.x*18),(tileSize.y*7), this.getItem) : null;
         !this.gameState.scenes[this.scene.key].items[3] ? createCollectableItem(3,this,(tileSize.x*2),(tileSize.y*7), this.getItem) : null;
         !this.gameState.scenes[this.scene.key].items[4] ? createCollectableItem(4,this,(tileSize.x*8),(tileSize.y*4), this.getItem) : null;
-
-        
-        
-       
+        this.hasAllItems() ? createEndLevelItem(10,this,(tileSize.x*8),(tileSize.y*7), this.loadScene) : null;
 
     }
-
+    hasAllItems(){
+        return this.gameState.itemsCollected == 9;
+    }
+    checkEndOfLevel(){
+        if (this.hasAllItems() && !this.gameState.endLevelOnScene){
+            createEndLevelItem(10,this,(tileSize.x*8),(tileSize.y*7), this.loadScene);
+            this.gameState.endLevelOnScene = true;
+        }
+    }
     update() {
         this.player.update(this)
+        this.checkEndOfLevel();
+        
     }
 }
