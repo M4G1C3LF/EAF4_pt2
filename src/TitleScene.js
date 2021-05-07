@@ -53,7 +53,12 @@ export default class TitleScene extends Phaser.Scene{
 
     }
     startGame(){
-        this.scene.start('MainScene',defaultGameState);
+        this.scene.start(
+            'MainScene',
+            {
+                gameState:defaultGameState
+            }
+        );
     }
     create () {
         //this.setBGM();

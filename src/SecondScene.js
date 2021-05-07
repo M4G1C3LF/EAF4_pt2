@@ -10,11 +10,47 @@ export default class SecondScene extends Phaser.Scene{
         super({
             key: 'SecondScene'
         });
-        
+
+        //USE IT TO KEEP USING OBJECTS AS this ON PASSING METHOD THROUGH PARAMS
+        this.loadScene = this.loadScene.bind(this);
+        this.getItem = this.getItem.bind(this);
+
+        //this.gameState = this.gameState.bind(this);
+    }
+    init(data){
+        this.gameState = data.gameState;
+        this.vector2DtargetSceneSpawn = data.vector2DtargetSceneSpawn;
+
+        console.log("INIT")
+        console.log(this.scene.key)
+        if(!this.gameState.scenes[this.scene.key]){
+            this.gameState.scenes[this.scene.key] = {
+                items: [
+                    false,
+                    false,
+                    false,
+                    false
+                ]
+            }
+        }
+        console.log(JSON.stringify(this.gameState))
+
     }
     preload () {
     }
-
+    getItem(id){
+        this.gameState.scenes[this.scene.key].items[id] = true;
+        this.gameState.itemsCollected++;
+    }
+    loadScene(sceneId,vector2DtargetSceneSpawn){
+        this.scene.start(
+            sceneId, 
+            { 
+                gameState: this.gameState, 
+                vector2DtargetSceneSpawn
+            }
+        )
+    }
     createFloor(scene,x,y){
         createTile(scene,x,y,"dirt/plain");
         createTile(scene,x+tileSize.x,y,"dirt/plain");
@@ -99,20 +135,78 @@ export default class SecondScene extends Phaser.Scene{
         createTile(scene,x+tileSize.x,y,"dirt/topBorder");
         createTile(scene,x+(tileSize.x*2),y,"dirt/topBorder");
 
-        createSceneChanger(scene,x,y+tileSize.y,"MainScene");
-        //createTile(scene,x,y+tileSize.y,"dirt/plain");
+        
 
     }
 
     createEastWall(scene,x,y){
-        createTile(scene,x,y-(tileSize.y*6),"rock/leftBorder");
-        createTile(scene,x,y-(tileSize.y*5),"rock/plain");
-        createTile(scene,x,y-(tileSize.y*4),"rock/topLeftBorder");
-        createTile(scene,x,y-(tileSize.y*3),"rock/leftBorder");
-        createTile(scene,x,y-(tileSize.y*2),"rock/plain");
-        createTile(scene,x,y-tileSize.y,"rock/leftBorder");
-        createTile(scene,x,y,"rock/leftBorder");
-        createTile(scene,x,y+tileSize.y,"rock/leftBorder");
+        createTile(scene,x,y-(tileSize.y*7),"dirt/plain");
+        createTile(scene,x+tileSize.x,y-(tileSize.y*7),"dirt/topBorder");
+        createTile(scene,x+(tileSize.x*2),y-(tileSize.y*7),"dirt/plain");
+
+        createTile(scene,x,y-(tileSize.y*6),"dirt/topBorder");
+        createTile(scene,x+tileSize.x,y-(tileSize.y*6),"dirt/plain");
+        createTile(scene,x+(tileSize.x*2),y-(tileSize.y*6),"dirt/plain");
+
+        createTile(scene,x,y-(tileSize.y*5),"dirt/plain");
+        createTile(scene,x+tileSize.x,y-(tileSize.y*5),"dirt/topLeftBorder");
+        createTile(scene,x+(tileSize.x*2),y-(tileSize.y*5),"dirt/plain");
+
+        createTile(scene,x,y-(tileSize.y*4),"dirt/topRightBorder");
+        createTile(scene,x+tileSize.x,y-(tileSize.y*4),"dirt/plain");
+        createTile(scene,x+(tileSize.x*2),y-(tileSize.y*4),"dirt/topBorder");
+
+        createTile(scene,x,y-(tileSize.y*3),"dirt/plain");
+        createTile(scene,x+tileSize.x,y-(tileSize.y*3),"dirt/bottomBorder");
+        createTile(scene,x+(tileSize.x*2),y-(tileSize.y*3),"dirt/topLeftBorder");
+
+        createTile(scene,x,y-(tileSize.y*2),"dirt/topBorder");
+        createTile(scene,x+tileSize.x,y-(tileSize.y*2),"dirt/plain");
+        createTile(scene,x+(tileSize.x*2),y-(tileSize.y*2),"dirt/plain");
+
+        createTile(scene,x,y-tileSize.y,"dirt/plain");
+        createTile(scene,x+tileSize.x,y-tileSize.y,"dirt/allBorders");
+        createTile(scene,x+(tileSize.x*2),y-tileSize.y,"dirt/plain");
+
+        createTile(scene,x,y,"dirt/topBottomBorder");
+        createTile(scene,x+tileSize.x,y,"dirt/topBorder");
+        createTile(scene,x+(tileSize.x*2),y,"dirt/topBorder");
+        
+        createTile(scene,x,y-(tileSize.y*7),"dirt/plain");
+        createTile(scene,x+tileSize.x,y-(tileSize.y*7),"dirt/topBorder");
+        createTile(scene,x+(tileSize.x*2),y-(tileSize.y*7),"dirt/plain");
+
+        createTile(scene,x,y-(tileSize.y*6),"dirt/topBorder");
+        createTile(scene,x+tileSize.x,y-(tileSize.y*6),"dirt/plain");
+        createTile(scene,x+(tileSize.x*2),y-(tileSize.y*6),"dirt/plain");
+
+        createTile(scene,x,y-(tileSize.y*5),"dirt/plain");
+        createTile(scene,x+tileSize.x,y-(tileSize.y*5),"dirt/topLeftBorder");
+        createTile(scene,x+(tileSize.x*2),y-(tileSize.y*5),"dirt/plain");
+
+        createTile(scene,x,y-(tileSize.y*4),"dirt/topRightBorder");
+        createTile(scene,x+tileSize.x,y-(tileSize.y*4),"dirt/plain");
+        createTile(scene,x+(tileSize.x*2),y-(tileSize.y*4),"dirt/topBorder");
+
+        createTile(scene,x,y-(tileSize.y*3),"dirt/plain");
+        createTile(scene,x+tileSize.x,y-(tileSize.y*3),"dirt/bottomBorder");
+        createTile(scene,x+(tileSize.x*2),y-(tileSize.y*3),"dirt/topLeftBorder");
+
+        createTile(scene,x,y-(tileSize.y*2),"dirt/topBorder");
+        createTile(scene,x+tileSize.x,y-(tileSize.y*2),"dirt/plain");
+        createTile(scene,x+(tileSize.x*2),y-(tileSize.y*2),"dirt/plain");
+
+        createTile(scene,x,y-tileSize.y,"dirt/plain");
+        createTile(scene,x+tileSize.x,y-tileSize.y,"dirt/allBorders");
+        createTile(scene,x+(tileSize.x*2),y-tileSize.y,"dirt/plain");
+
+        createTile(scene,x,y,"dirt/topBottomBorder");
+        createTile(scene,x+tileSize.x,y,"dirt/topBorder");
+        createTile(scene,x+(tileSize.x*2),y,"dirt/topBorder");
+
+        createSceneChanger(scene,x+tileSize.x*2,y+tileSize.y,"MainScene",this.loadScene, {x: 30, y: 110});
+
+        
     }
 
     createMap(scene){
@@ -123,7 +217,7 @@ export default class SecondScene extends Phaser.Scene{
         this.createPlatform(scene,(tileSize.x*11),(tileSize.y*4),"dirt");
         this.createPlatform(scene,(tileSize.x*15),(tileSize.y*3),"sand");
         this.createWestWall(scene,0,(tileSize.y*6));
-        this.createEastWall(scene,(tileSize.x*19),(tileSize.y*6));
+        this.createEastWall(scene,(tileSize.x*18),(tileSize.y*6));
 
     }
     registerKeyInput(){
@@ -131,7 +225,7 @@ export default class SecondScene extends Phaser.Scene{
         this.keys = {
             left: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A),
             right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
-            crouch: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S)
+            crouch: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S),
         };
     }
     createGroups(){
@@ -139,6 +233,8 @@ export default class SecondScene extends Phaser.Scene{
         this.tiles = this.physics.add.staticGroup();
         //Create static group to fill in all collectable items
         this.collectableItems = this.physics.add.staticGroup();
+        //Create static group to fill in all SceneChangers
+        this.sceneChangers = this.physics.add.staticGroup();
     }
     SetBGM(){
         this.music = this.sound.add('whitenoise');
@@ -152,13 +248,19 @@ export default class SecondScene extends Phaser.Scene{
         this.createGroups();
 
         // populate this.player        
-        createPlayer(this,250,0);
+        createPlayer(
+            this,
+            this.vector2DtargetSceneSpawn ? this.vector2DtargetSceneSpawn.x : 250,
+            this.vector2DtargetSceneSpawn ? this.vector2DtargetSceneSpawn.y : 0,
+        );
 
         this.createMap(this);
-        createCollectableItem(this,(tileSize.x*11),(tileSize.y*3))
-        createCollectableItem(this,(tileSize.x*3),(tileSize.y*2))
-        createCollectableItem(this,(tileSize.x*18),(tileSize.y*7))
-        createCollectableItem(this,(tileSize.x*2),(tileSize.y*7))
+        !this.gameState.scenes[this.scene.key].items[0] ? createCollectableItem(0,this,(tileSize.x*11),(tileSize.y*3), this.getItem) : null;
+        !this.gameState.scenes[this.scene.key].items[1] ? createCollectableItem(1,this,(tileSize.x*3),(tileSize.y*2), this.getItem) : null;
+        !this.gameState.scenes[this.scene.key].items[2] ? createCollectableItem(2,this,(tileSize.x*18),(tileSize.y*7), this.getItem) : null;
+        !this.gameState.scenes[this.scene.key].items[3] ? createCollectableItem(3,this,(tileSize.x*2),(tileSize.y*7), this.getItem) : null;
+        
+        
        
 
     }

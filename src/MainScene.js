@@ -18,10 +18,11 @@ export default class MainScene extends Phaser.Scene{
         //this.gameState = this.gameState.bind(this);
     }
     init(data){
-        this.gameState = data;
+        this.gameState = data.gameState;
+        this.vector2DtargetSceneSpawn = data.vector2DtargetSceneSpawn;
         console.log("INIT")
-        if(!this.gameState[this.scene.key]){
-            this.gameState[this.scene.key] = {
+        if(!this.gameState.scenes[this.scene.key]){
+            this.gameState.scenes[this.scene.key] = {
                 items: [
                     false,
                     false,
@@ -31,15 +32,23 @@ export default class MainScene extends Phaser.Scene{
             }
         }
         console.log(JSON.stringify(this.gameState))
+        console.log(JSON.stringify(data.vector2DtargetSceneSpawn))
 
     }
     preload () {
     }
     getItem(id){
-        this.gameState[this.scene.key].items[id] = true;
+        this.gameState.scenes[this.scene.key].items[id] = true;
+        this.gameState.itemsCollected++;
     }
-    loadScene(sceneId){
-        this.scene.start(sceneId)
+    loadScene(sceneId,vector2DtargetSceneSpawn){
+        this.scene.start(
+            sceneId, 
+            { 
+                gameState: this.gameState, 
+                vector2DtargetSceneSpawn
+            }
+        )
     }
     createFloor(scene,x,y){
         createTile(scene,x,y,"dirt/plain");
@@ -125,7 +134,7 @@ export default class MainScene extends Phaser.Scene{
         createTile(scene,x+tileSize.x,y,"dirt/topBorder");
         createTile(scene,x+(tileSize.x*2),y,"dirt/topBorder");
 
-        createSceneChanger(scene,x,y+tileSize.y,"MainScene",this.loadScene);
+        createSceneChanger(scene,0,y+tileSize.y,"SecondScene",this.loadScene,{x: 272, y: 110});
         
 
     }
@@ -180,13 +189,17 @@ export default class MainScene extends Phaser.Scene{
         this.createGroups();
 
         // populate this.player        
-        createPlayer(this,250,0);
+        createPlayer(
+            this,
+            this.vector2DtargetSceneSpawn ? this.vector2DtargetSceneSpawn.x : 250,
+            this.vector2DtargetSceneSpawn ? this.vector2DtargetSceneSpawn.y : 0,
+        );
 
         this.createMap(this);
-        !this.gameState[this.scene.key].items[0] ? createCollectableItem(0,this,(tileSize.x*11),(tileSize.y*3), this.getItem) : null;
-        !this.gameState[this.scene.key].items[1] ? createCollectableItem(1,this,(tileSize.x*3),(tileSize.y*2), this.getItem) : null;
-        !this.gameState[this.scene.key].items[2] ? createCollectableItem(2,this,(tileSize.x*18),(tileSize.y*7), this.getItem) : null;
-        !this.gameState[this.scene.key].items[3] ? createCollectableItem(3,this,(tileSize.x*2),(tileSize.y*7), this.getItem) : null;
+        !this.gameState.scenes[this.scene.key].items[0] ? createCollectableItem(0,this,(tileSize.x*11),(tileSize.y*3), this.getItem) : null;
+        !this.gameState.scenes[this.scene.key].items[1] ? createCollectableItem(1,this,(tileSize.x*3),(tileSize.y*2), this.getItem) : null;
+        !this.gameState.scenes[this.scene.key].items[2] ? createCollectableItem(2,this,(tileSize.x*18),(tileSize.y*7), this.getItem) : null;
+        !this.gameState.scenes[this.scene.key].items[3] ? createCollectableItem(3,this,(tileSize.x*2),(tileSize.y*7), this.getItem) : null;
         
         
        
