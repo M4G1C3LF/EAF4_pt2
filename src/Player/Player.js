@@ -109,10 +109,11 @@ class Player extends Phaser.GameObjects.Sprite{
         }
         // ON PRESS DOWN
         if(keys.crouch.isDown && !this.prevKeys.crouch){
-            scene.player.play("crouch");            
+            scene.player.play("crouch");    
+                    
             this.body.setSize(16,10,true);
             this.body.setOffset(8,13);
-            //this.body.setBoundsRectangle(new Phaser.Geom.Rectangle(0,7,16,10));
+
         }
         // ON RELEASE DOWN
         if(!keys.crouch.isDown && this.prevKeys.crouch){
@@ -126,7 +127,6 @@ class Player extends Phaser.GameObjects.Sprite{
             } else {
                 scene.player.play("idle");
             }
-            //this.body.setBoundsRectangle(new Phaser.Geom.Rectangle(0,0,16,17));
 
             this.body.setSize(16,17,true)
             this.body.setOffset(8,5);
