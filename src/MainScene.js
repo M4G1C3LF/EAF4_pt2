@@ -33,10 +33,12 @@ export default class MainScene extends Phaser.Scene{
 
     }
     preload () {
+        this.uiElements = {};
     }
     getItem(id){
         this.gameState.scenes[this.scene.key].items[id] = true;
         this.gameState.itemsCollected++;
+        this.SetUI(this);
     }
     killPlayer(){
         this.gameState.lives--;
@@ -184,6 +186,7 @@ export default class MainScene extends Phaser.Scene{
         this.collectableItems = this.physics.add.staticGroup();
         //Create static group to fill in all SceneChangers
         this.sceneChangers = this.physics.add.staticGroup();
+
     }
     SetBGM(){
         this.music = this.sound.add('whitenoise');
@@ -192,7 +195,76 @@ export default class MainScene extends Phaser.Scene{
         });
         
     }
+    SetUI(scene,x,y){
+        if(!this.uiElements.lives){
+            this.uiElements = { 
+                ...this.uiElements, 
+                lives: {
+                    label: null,
+                    value: null
+                }
+            }
+            this.uiElements.lives.label = scene.add.text(
+                x+20,
+                y, 
+                "Lives:", 
+                {
+                    color: '#FFF',
+                    strokeThickness: 3,
+                    stroke: '#000'
+                }
+            );
+
+            this.uiElements.lives.value = scene.add.text(
+                x+83,
+                y, 
+                scene.gameState.lives, 
+                {
+                    color: '#FFF',
+                    strokeThickness: 3,
+                    stroke: '#000'
+                }
+            );
+
+        } else {
+            console.log(this.uiElements);
+            this.uiElements.lives.value.setText(scene.gameState.lives);
+        }
+        
+        if (!this.uiElements.itemsCollected){
+            this.uiElements = { 
+                ...this.uiElements, 
+                itemsCollected: {
+                    label: null,
+                    value: null
+                }
+            }
+            this.uiElements.itemsCollected.label = scene.add.text(
+                x+200,
+                y, 
+                'Items:', 
+                {
+                    color: '#FFF',
+                    strokeThickness: 3,
+                    stroke: '#000'
+                }
+            );
+            this.uiElements.itemsCollected.value = scene.add.text(
+                x+262,
+                y, 
+                scene.gameState.itemsCollected, 
+                {
+                    color: '#FFF',
+                    strokeThickness: 3,
+                    stroke: '#000'
+                }
+            );
+        } else {
+            this.uiElements.itemsCollected.value.setText(scene.gameState.itemsCollected);
+        }
+    }
     create () {
+        
         this.SetBGM();
         this.registerKeyInput();
         this.createGroups();
@@ -203,7 +275,7 @@ export default class MainScene extends Phaser.Scene{
             this.vector2DtargetSceneSpawn ? this.vector2DtargetSceneSpawn.x : 220,
             this.vector2DtargetSceneSpawn ? this.vector2DtargetSceneSpawn.y : 50,
         );
-
+        
         this.createMap(this);
         !this.gameState.scenes[this.scene.key].items[0] ? createCollectableItem(0,this,(tileSize.x*11),(tileSize.y*2), this.getItem) : null;
         !this.gameState.scenes[this.scene.key].items[1] ? createCollectableItem(1,this,(tileSize.x*3),(tileSize.y*1), this.getItem) : null;
@@ -211,6 +283,8 @@ export default class MainScene extends Phaser.Scene{
         !this.gameState.scenes[this.scene.key].items[3] ? createCollectableItem(3,this,(tileSize.x*2),(tileSize.y*7), this.getItem) : null;
         !this.gameState.scenes[this.scene.key].items[4] ? createCollectableItem(4,this,(tileSize.x*8),(tileSize.y*4), this.getItem) : null;
         this.hasAllItems() ? createEndLevelItem(10,this,(tileSize.x*8),(tileSize.y*7), this.loadScene) : null;
+        this.SetUI(this,0,130);
+
 
     }
     hasAllItems(){
