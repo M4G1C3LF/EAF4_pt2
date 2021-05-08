@@ -47,6 +47,8 @@ class BootScene extends Phaser.Scene {
         
         //Load gameLogo single image
         this.load.image('gameLogo', '../img/gameLogo.png')
+        //Load gameOver single image
+        this.load.image('gameOver', '../img/gameOver.png')
         // Load Music
         this.load.audio('whitenoise', [
             '../sfx/whitenoise.ogg'

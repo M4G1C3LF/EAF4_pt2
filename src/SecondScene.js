@@ -38,6 +38,7 @@ export default class SecondScene extends Phaser.Scene{
         this.gameState.itemsCollected++;
     }
     loadScene(sceneId,vector2DtargetSceneSpawn){
+        this.music.stop();
         this.scene.start(
             sceneId, 
             { 

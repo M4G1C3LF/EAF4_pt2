@@ -38,6 +38,7 @@ export default class MainScene extends Phaser.Scene{
         this.gameState.itemsCollected++;
     }
     loadScene(sceneId,vector2DtargetSceneSpawn){
+        this.music.stop();
         this.scene.start(
             sceneId, 
             { 
@@ -181,6 +182,7 @@ export default class MainScene extends Phaser.Scene{
         this.music.play({
             loop: true
         });
+        
     }
     create () {
         this.SetBGM();
