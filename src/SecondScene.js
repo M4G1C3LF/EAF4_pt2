@@ -18,6 +18,7 @@ export default class SecondScene extends Phaser.Scene{
         this.getItem = this.getItem.bind(this);
         this.killPlayer = this.killPlayer.bind(this);
         //this.gameState = this.gameState.bind(this);
+
     }
     init(data){
         this.gameState = data.gameState;
@@ -34,10 +35,12 @@ export default class SecondScene extends Phaser.Scene{
 
     }
     preload () {
+        this.uiElements = {};
     }
     getItem(id){
         this.gameState.scenes[this.scene.key].items[id] = true;
         this.gameState.itemsCollected++;
+        this.SetUI(this);
     }
     killPlayer(){
         this.gameState.lives--;
@@ -301,6 +304,74 @@ export default class SecondScene extends Phaser.Scene{
             loop: true
         });
     }
+    SetUI(scene,x,y){
+        if(!this.uiElements.lives){
+            this.uiElements = { 
+                ...this.uiElements, 
+                lives: {
+                    label: null,
+                    value: null
+                }
+            }
+            this.uiElements.lives.label = scene.add.text(
+                x+20,
+                y, 
+                "Lives:", 
+                {
+                    color: '#FFF',
+                    strokeThickness: 3,
+                    stroke: '#000'
+                }
+            );
+
+            this.uiElements.lives.value = scene.add.text(
+                x+83,
+                y, 
+                scene.gameState.lives, 
+                {
+                    color: '#FFF',
+                    strokeThickness: 3,
+                    stroke: '#000'
+                }
+            );
+
+        } else {
+            console.log(this.uiElements);
+            this.uiElements.lives.value.setText(scene.gameState.lives);
+        }
+        
+        if (!this.uiElements.itemsCollected){
+            this.uiElements = { 
+                ...this.uiElements, 
+                itemsCollected: {
+                    label: null,
+                    value: null
+                }
+            }
+            this.uiElements.itemsCollected.label = scene.add.text(
+                x+200,
+                y, 
+                'Items:', 
+                {
+                    color: '#FFF',
+                    strokeThickness: 3,
+                    stroke: '#000'
+                }
+            );
+            this.uiElements.itemsCollected.value = scene.add.text(
+                x+262,
+                y, 
+                scene.gameState.itemsCollected, 
+                {
+                    color: '#FFF',
+                    strokeThickness: 3,
+                    stroke: '#000'
+                }
+            );
+        } else {
+            this.uiElements.itemsCollected.value.setText(scene.gameState.itemsCollected);
+        }
+    }
     create () {
         this.SetBGM();
         this.registerKeyInput();
@@ -320,7 +391,8 @@ export default class SecondScene extends Phaser.Scene{
         !this.gameState.scenes[this.scene.key].items[3] ? createCollectableItem(3,this,(tileSize.x*2),(tileSize.y*7), this.getItem) : null;
         
         
-       
+        this.SetUI(this,0,130);
+
 
     }
 
