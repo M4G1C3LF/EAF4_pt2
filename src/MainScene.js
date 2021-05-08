@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { createPlayer } from './Player/Player';
 import { createTile,  tileSize } from './Tile/Tile';
+import { createDeathTile } from './DeathTile/DeathTile';
 import { createCollectableItem } from './CollectableItem/CollectableItem';
 import { createSceneChanger } from './SceneChanger/SceneChanger';
 import { createEndLevelItem } from './EndLevelItem.js/EndLevelItem';
@@ -15,7 +16,7 @@ export default class MainScene extends Phaser.Scene{
         //USE IT TO KEEP USING OBJECTS AS this ON PASSING METHOD THROUGH PARAMS
         this.loadScene = this.loadScene.bind(this);
         this.getItem = this.getItem.bind(this);
-
+        this.killPlayer = this.killPlayer.bind(this);
         //this.gameState = this.gameState.bind(this);
     }
     init(data){
@@ -36,6 +37,13 @@ export default class MainScene extends Phaser.Scene{
     getItem(id){
         this.gameState.scenes[this.scene.key].items[id] = true;
         this.gameState.itemsCollected++;
+    }
+    killPlayer(){
+        this.gameState.lives--;
+        if (this.gameState.lives)
+            loadScene(this.key,this.vector2DtargetSceneSpawn);
+        else
+            loadScene("GameOverScene");
     }
     loadScene(sceneId,vector2DtargetSceneSpawn){
         this.music.stop();

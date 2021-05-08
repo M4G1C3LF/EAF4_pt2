@@ -1,8 +1,10 @@
 import Phaser from 'phaser';
 import { createPlayer } from './Player/Player';
 import { createTile,  tileSize } from './Tile/Tile';
+import { createDeathTile } from './DeathTile/DeathTile';
 import { createCollectableItem } from './CollectableItem/CollectableItem';
 import { createSceneChanger } from './SceneChanger/SceneChanger';
+import { loadScene } from './SceneUtilities';
 
 export default class SecondScene extends Phaser.Scene{
 
@@ -10,11 +12,11 @@ export default class SecondScene extends Phaser.Scene{
         super({
             key: 'SecondScene'
         });
-
+        this.key = 'SecondScene';
         //USE IT TO KEEP USING OBJECTS AS this ON PASSING METHOD THROUGH PARAMS
         this.loadScene = this.loadScene.bind(this);
         this.getItem = this.getItem.bind(this);
-
+        this.killPlayer = this.killPlayer.bind(this);
         //this.gameState = this.gameState.bind(this);
     }
     init(data){
@@ -36,6 +38,13 @@ export default class SecondScene extends Phaser.Scene{
     getItem(id){
         this.gameState.scenes[this.scene.key].items[id] = true;
         this.gameState.itemsCollected++;
+    }
+    killPlayer(){
+        this.gameState.lives--;
+        if (this.gameState.lives)
+            this.loadScene(this.key,this.vector2DtargetSceneSpawn);
+        else
+            this.loadScene("GameOverScene");
     }
     loadScene(sceneId,vector2DtargetSceneSpawn){
         this.music.stop();
@@ -80,11 +89,15 @@ export default class SecondScene extends Phaser.Scene{
         createTile(scene,x+(tileSize.x*8),y+tileSize.y,"dirt/plain");
         createTile(scene,x+(tileSize.x*9),y+tileSize.y,"sand/plain");
         createTile(scene,x+(tileSize.x*10),y+tileSize.y,"sand/plain");
-        /*createTile(scene,x+(tileSize.x*11),y+tileSize.y,"sand/plain");
+/*
+        createTile(scene,x+(tileSize.x*11),y+tileSize.y,"sand/plain");
         createTile(scene,x+(tileSize.x*12),y+tileSize.y,"sand/plain");
         createTile(scene,x+(tileSize.x*13),y+tileSize.y,"sand/plain");
         createTile(scene,x+(tileSize.x*14),y+tileSize.y,"sand/plain");
-        createTile(scene,x+(tileSize.x*15),y+tileSize.y,"sand/plain");*/
+        createTile(scene,x+(tileSize.x*15),y+tileSize.y,"sand/plain");
+*/
+        
+        
         createTile(scene,x+(tileSize.x*16),y+tileSize.y,"rock/plain");
         createTile(scene,x+(tileSize.x*17),y+tileSize.y,"rock/plain");
         createTile(scene,x+(tileSize.x*18),y+tileSize.y,"rock/plain");
@@ -122,6 +135,7 @@ export default class SecondScene extends Phaser.Scene{
     }
     createWestWall(scene,x,y){
 
+        
         createTile(scene,x,y-(tileSize.y*7),"dirt/plain");
         createTile(scene,x+tileSize.x,y-(tileSize.y*7),"dirt/topBorder");
         createTile(scene,x+(tileSize.x*2),y-(tileSize.y*7),"dirt/plain");
@@ -154,6 +168,7 @@ export default class SecondScene extends Phaser.Scene{
         createTile(scene,x+tileSize.x,y,"dirt/topBorder");
         createTile(scene,x+(tileSize.x*2),y,"dirt/topBorder");
 
+        createTile(scene,x,y+(tileSize.y*1),"dirt/rightBorder");
         
 
     }
@@ -228,7 +243,29 @@ export default class SecondScene extends Phaser.Scene{
 
         
     }
+    createDeathBorder(scene){
 
+        //BOTTOM
+        createDeathTile(scene,tileSize.x*1,tileSize.y*10,this.killPlayer);
+        createDeathTile(scene,tileSize.x*2,tileSize.y*10,this.killPlayer);
+        createDeathTile(scene,tileSize.x*3,tileSize.y*10,this.killPlayer);
+        createDeathTile(scene,tileSize.x*4,tileSize.y*10,this.killPlayer);
+        createDeathTile(scene,tileSize.x*5,tileSize.y*10,this.killPlayer);
+        createDeathTile(scene,tileSize.x*6,tileSize.y*10,this.killPlayer);
+        createDeathTile(scene,tileSize.x*7,tileSize.y*10,this.killPlayer);
+        createDeathTile(scene,tileSize.x*8,tileSize.y*10,this.killPlayer);
+        createDeathTile(scene,tileSize.x*9,tileSize.y*10,this.killPlayer);
+        createDeathTile(scene,tileSize.x*10,tileSize.y*10,this.killPlayer);
+        createDeathTile(scene,tileSize.x*11,tileSize.y*10,this.killPlayer);
+        createDeathTile(scene,tileSize.x*12,tileSize.y*10,this.killPlayer);
+        createDeathTile(scene,tileSize.x*13,tileSize.y*10,this.killPlayer);
+        createDeathTile(scene,tileSize.x*14,tileSize.y*10,this.killPlayer);
+        createDeathTile(scene,tileSize.x*15,tileSize.y*10,this.killPlayer);
+        createDeathTile(scene,tileSize.x*16,tileSize.y*10,this.killPlayer);
+        createDeathTile(scene,tileSize.x*17,tileSize.y*10,this.killPlayer);
+        createDeathTile(scene,tileSize.x*18,tileSize.y*10,this.killPlayer);
+
+    }
     createMap(scene){
         this.createFloor(scene,0,(tileSize.y*8));   
         this.createPlatform(scene,(tileSize.x*3),(tileSize.y*6),"rock");
@@ -239,6 +276,7 @@ export default class SecondScene extends Phaser.Scene{
         this.createWestWall(scene,0,(tileSize.y*6));
         this.createEastWall(scene,(tileSize.x*18),(tileSize.y*6));
         this.createCeiling(scene,0,0);
+        this.createDeathBorder(scene);
 
     }
     registerKeyInput(){
