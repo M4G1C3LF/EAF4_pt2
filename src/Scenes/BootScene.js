@@ -1,6 +1,6 @@
-import playerSpriteSheet from './Player/sprites/player.png';
-import tileSpriteSheet from './Tile/sprites/tileSheet.png';
-import collectableItemSpriteSheet from './CollectableItem/sprites/spriteSheet.png';
+import playerSpriteSheet from '../Player/sprites/player.png';
+import tileSpriteSheet from '../Tile/sprites/tileSheet.png';
+import collectableItemSpriteSheet from '../CollectableItem/sprites/spriteSheet.png';
 
 class BootScene extends Phaser.Scene {
     constructor(test) {

@@ -1,7 +1,4 @@
 import Phaser from 'phaser';
-import { createPlayer } from './Player/Player';
-import { createTile,  tileSize } from './Tile/Tile';
-import { createCollectableItem } from './CollectableItem/CollectableItem';
 
 export default class TitleScene extends Phaser.Scene{
 

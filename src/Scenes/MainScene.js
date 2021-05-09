@@ -1,10 +1,9 @@
 import Phaser from 'phaser';
-import { createPlayer } from './Player/Player';
-import { createTile,  tileSize } from './Tile/Tile';
-import { createDeathTile } from './DeathTile/DeathTile';
-import { createCollectableItem } from './CollectableItem/CollectableItem';
-import { createSceneChanger } from './SceneChanger/SceneChanger';
-import { createEndLevelItem } from './EndLevelItem.js/EndLevelItem';
+import { createPlayer } from '../Player/Player';
+import { createTile,  tileSize } from '../Tile/Tile';
+import { createCollectableItem } from '../CollectableItem/CollectableItem';
+import { createSceneChanger } from '../SceneChanger/SceneChanger';
+import { createEndLevelItem } from '../EndLevelItem.js/EndLevelItem';
 
 export default class MainScene extends Phaser.Scene{
 
