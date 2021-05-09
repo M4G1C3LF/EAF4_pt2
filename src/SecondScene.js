@@ -249,24 +249,24 @@ export default class SecondScene extends Phaser.Scene{
     createDeathBorder(scene){
 
         //BOTTOM
-        createDeathTile(scene,tileSize.x*1,tileSize.y*10,this.killPlayer);
-        createDeathTile(scene,tileSize.x*2,tileSize.y*10,this.killPlayer);
-        createDeathTile(scene,tileSize.x*3,tileSize.y*10,this.killPlayer);
-        createDeathTile(scene,tileSize.x*4,tileSize.y*10,this.killPlayer);
-        createDeathTile(scene,tileSize.x*5,tileSize.y*10,this.killPlayer);
-        createDeathTile(scene,tileSize.x*6,tileSize.y*10,this.killPlayer);
-        createDeathTile(scene,tileSize.x*7,tileSize.y*10,this.killPlayer);
-        createDeathTile(scene,tileSize.x*8,tileSize.y*10,this.killPlayer);
-        createDeathTile(scene,tileSize.x*9,tileSize.y*10,this.killPlayer);
-        createDeathTile(scene,tileSize.x*10,tileSize.y*10,this.killPlayer);
-        createDeathTile(scene,tileSize.x*11,tileSize.y*10,this.killPlayer);
-        createDeathTile(scene,tileSize.x*12,tileSize.y*10,this.killPlayer);
-        createDeathTile(scene,tileSize.x*13,tileSize.y*10,this.killPlayer);
-        createDeathTile(scene,tileSize.x*14,tileSize.y*10,this.killPlayer);
-        createDeathTile(scene,tileSize.x*15,tileSize.y*10,this.killPlayer);
-        createDeathTile(scene,tileSize.x*16,tileSize.y*10,this.killPlayer);
-        createDeathTile(scene,tileSize.x*17,tileSize.y*10,this.killPlayer);
-        createDeathTile(scene,tileSize.x*18,tileSize.y*10,this.killPlayer);
+        createDeathTile(scene,tileSize.x*1,tileSize.y*11,this.killPlayer);
+        createDeathTile(scene,tileSize.x*2,tileSize.y*11,this.killPlayer);
+        createDeathTile(scene,tileSize.x*3,tileSize.y*11,this.killPlayer);
+        createDeathTile(scene,tileSize.x*4,tileSize.y*11,this.killPlayer);
+        createDeathTile(scene,tileSize.x*5,tileSize.y*11,this.killPlayer);
+        createDeathTile(scene,tileSize.x*6,tileSize.y*11,this.killPlayer);
+        createDeathTile(scene,tileSize.x*7,tileSize.y*11,this.killPlayer);
+        createDeathTile(scene,tileSize.x*8,tileSize.y*11,this.killPlayer);
+        createDeathTile(scene,tileSize.x*9,tileSize.y*11,this.killPlayer);
+        createDeathTile(scene,tileSize.x*10,tileSize.y*11,this.killPlayer);
+        createDeathTile(scene,tileSize.x*11,tileSize.y*11,this.killPlayer);
+        createDeathTile(scene,tileSize.x*12,tileSize.y*11,this.killPlayer);
+        createDeathTile(scene,tileSize.x*13,tileSize.y*11,this.killPlayer);
+        createDeathTile(scene,tileSize.x*14,tileSize.y*11,this.killPlayer);
+        createDeathTile(scene,tileSize.x*15,tileSize.y*11,this.killPlayer);
+        createDeathTile(scene,tileSize.x*16,tileSize.y*11,this.killPlayer);
+        createDeathTile(scene,tileSize.x*17,tileSize.y*11,this.killPlayer);
+        createDeathTile(scene,tileSize.x*18,tileSize.y*11,this.killPlayer);
 
     }
     createMap(scene){
