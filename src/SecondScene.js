@@ -372,10 +372,18 @@ export default class SecondScene extends Phaser.Scene{
             this.uiElements.itemsCollected.value.setText(scene.gameState.itemsCollected);
         }
     }
+    setBackground(){
+        this.add.image(
+            this.game.config.width/2,
+            this.game.config.height/2,
+            "background02"
+        ).setScale(0.3,0.22);
+    }
     create () {
         this.SetBGM();
         this.registerKeyInput();
         this.createGroups();
+        this.setBackground();
 
         // populate this.player        
         createPlayer(
