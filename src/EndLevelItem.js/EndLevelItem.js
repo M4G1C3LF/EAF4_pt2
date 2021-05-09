@@ -36,7 +36,6 @@ function destroyItem(item){
 function generateCollider(scene,item,loadScene){
     scene.physics.add.collider(scene.player,item, (e => {
         scene.player.sfxList.pickUp.play();
-        console.log(JSON.stringify(scene.gameState[scene.key]));
         destroyItem(item);
         scene.cameras.main.fadeOut(2000, 0, 0, 0);
         scene.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {

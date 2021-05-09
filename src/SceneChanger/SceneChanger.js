@@ -12,7 +12,6 @@ const tileSize = { x: 16, y: 16 };
 
 function generateCollider(scene,sceneChanger,loadScene,vector2DtargetSceneSpawn){
     scene.physics.add.collider(scene.player,sceneChanger, (e => {
-        console.log("sceneChanger.key: "+sceneChanger.key);
         loadScene(sceneChanger.targetSceneKey,vector2DtargetSceneSpawn);
      }))
 }

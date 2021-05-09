@@ -19,7 +19,6 @@ function createAnimations(scene){
 function generateCollider(scene,item,getItem){
     scene.physics.add.collider(scene.player,item, (e => {
         scene.player.sfxList.pickUp.play();
-        console.log(JSON.stringify(scene.gameState[scene.key]));
         getItem(item.id);
         item.destroy();
         

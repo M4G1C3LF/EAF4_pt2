@@ -1,5 +1,4 @@
 function getItem(scene,sceneKey,id){
-    console.log("Scene.key: "+sceneKey);
     scene.gameState.scenes[sceneKey].items[id] = true;
     scene.gameState.itemsCollected++;
 }

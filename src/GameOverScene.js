@@ -31,7 +31,6 @@ export default class GameOver extends Phaser.Scene{
 
     update() {
         const date = new Date();
-        console.log("this.startTime.getTime(): "+this.startTime.getTime()+"\tdate.getTime():" +date.getTime())
         if(this.startTime.getTime()+3000 < date.getTime() && !this.fadeStarted){
             this.cameras.main.fadeOut(2000, 0, 0, 0);
             this.fadeStarted = true;

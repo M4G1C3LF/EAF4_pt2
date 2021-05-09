@@ -26,7 +26,6 @@ export default class SceneUtils {
     }
     registerKeyInput(that){
         // Register input keys 
-        console.log("that!! "+that);
         that.keys = {
             left: that.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A),
             right: that.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
@@ -116,7 +115,6 @@ export default class SceneUtils {
             );
 
         } else {
-            console.log(scene.uiElements);
             uiElements.lives.value.setText(scene.gameState.lives);
         }
         

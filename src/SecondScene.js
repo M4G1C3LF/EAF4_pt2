@@ -24,15 +24,11 @@ export default class SecondScene extends Phaser.Scene{
         this.gameState = data.gameState;
         this.vector2DtargetSceneSpawn = data.vector2DtargetSceneSpawn;
 
-        console.log("INIT")
-        console.log(this.scene.key)
         if(!this.gameState.scenes[this.scene.key]){
             this.gameState.scenes[this.scene.key] = {
                 items: []
             }
         }
-        console.log(JSON.stringify(this.gameState))
-
     }
     preload () {
         this.uiElements = {};
@@ -336,7 +332,6 @@ export default class SecondScene extends Phaser.Scene{
             );
 
         } else {
-            console.log(this.uiElements);
             this.uiElements.lives.value.setText(scene.gameState.lives);
         }
         
