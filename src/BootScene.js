@@ -11,7 +11,7 @@ class BootScene extends Phaser.Scene {
     preload() {
         // Register a load complete event to launch the title screen when all files are loaded
         this.load.on('complete', () => {
-            this.scene.start('MainScene');
+            this.scene.start('TitleScene');
         });
 
         this.load.spritesheet(
@@ -45,9 +45,18 @@ class BootScene extends Phaser.Scene {
         //Load Atlas to 'collectableItem' key
         this.load.atlas('collectableItem', './CollectableItem/sprites/spriteSheet.png', './CollectableItem/sprites/spriteSheet.json');
         
+        //Load gameLogo single image
+        this.load.image('gameLogo', '../img/gameLogo.png')
+        //Load gameOver single image
+        this.load.image('gameOver', '../img/gameOver.png')
         // Load Music
         this.load.audio('whitenoise', [
             '../sfx/whitenoise.ogg'
+        ]);
+
+        // Load start
+        this.load.audio('start', [
+            '../sfx/start.ogg'
         ]);
 
         // Load Jump
