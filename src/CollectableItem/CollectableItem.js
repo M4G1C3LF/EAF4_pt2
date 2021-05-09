@@ -3,7 +3,7 @@ export default class CollectableItem extends Phaser.GameObjects.Sprite{
     constructor (config) {
         super(config.scene, config.x, config.y, config.key);
         config.scene.collectableItems.add(this,true);
-        this.id = config.id;
+        
     }
 }
 
@@ -16,26 +16,22 @@ function createAnimations(scene){
     });
 }
 
-function generateCollider(scene,item,getItem){
+function generateCollider(scene,item){
     scene.physics.add.collider(scene.player,item, (e => {
         scene.player.sfxList.pickUp.play();
-        console.log(JSON.stringify(scene.gameState[scene.key]));
-        getItem(item.id);
         item.destroy();
-        
      }))
 }
-function createCollectableItem(id,scene,x,y,getItem) {
+function createCollectableItem(scene,x,y) {
     const item = new CollectableItem({
         scene: scene,
         key: 'collectableItem',
         x,
-        y,
-        id
+        y
     });
     createAnimations(scene);
     item.play('collectableItem/idle')
-    generateCollider(scene,item,getItem);
+    generateCollider(scene,item);
 
 }
 

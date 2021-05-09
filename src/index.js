@@ -1,9 +1,6 @@
 import Phaser from 'phaser';
 import MainScene from './MainScene';
-import SecondScene from './SecondScene';
 import BootScene from './BootScene';
-import TitleScene from './TitleScene';
-import GameOverScene from './GameOverScene';
 
 const config = {
     // For more settings see <https://github.com/photonstorm/phaser/blob/master/src/boot/Config.js>
@@ -24,10 +21,7 @@ const config = {
     },
     scene: [
         BootScene,
-        TitleScene,
-        MainScene,
-        SecondScene,
-        GameOverScene
+        MainScene
     ]
 };
 

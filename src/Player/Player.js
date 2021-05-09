@@ -5,7 +5,7 @@ class Player extends Phaser.GameObjects.Sprite{
         
         config.scene.physics.world.enable(this);
         config.scene.add.existing(this);
-        this.body.setSize(16,17,true);
+        this.body.setSize(16,17)
 
         this.speed = 100;
         this.jumpForce = 150;
@@ -13,8 +13,6 @@ class Player extends Phaser.GameObjects.Sprite{
             jump: null,
             pickUp: null
         }
-        this.jumpCooldown = 500; //in millisenconds
-        this.lastJumpTime = null;
     }
     // Method that store the inputs given
     savePreviousKeyInput(keys){
@@ -36,21 +34,12 @@ class Player extends Phaser.GameObjects.Sprite{
         scene.player.body.velocity.x = 0;
     }
     jump(scene){
-        const currentTime = new Date();
-        if (
-            this.canJump && 
-            (
-                !this.lastJumpTime ||
-                (currentTime.getTime() > this.lastJumpTime.getTime() + this.jumpCooldown)
-            )
-        ){
-            this.lastJumpTime = currentTime;
+        if (this.canJump){
             scene.player.body.velocity.y = -this.jumpForce;
             scene.player.sfxList.jump.play();
         }
         this.canJump = false;
     }
-
     // Method to handle user's input
     keyHandler(scene){
         const { keys } = scene;
@@ -113,17 +102,11 @@ class Player extends Phaser.GameObjects.Sprite{
         }
         // ON PRESS DOWN
         if(keys.crouch.isDown && !this.prevKeys.crouch){
-            scene.player.play("crouch");    
-                    
-            this.body.setSize(16,10,true);
-            this.body.setOffset(8,13);
-
+            scene.player.play("crouch");
         }
         // ON RELEASE DOWN
         if(!keys.crouch.isDown && this.prevKeys.crouch){
             this.jump(scene);
-
-            //this.body.
             if (keys.left.isDown){
                 scene.player.play("move");
             } else if (keys.right.isDown){
@@ -131,9 +114,6 @@ class Player extends Phaser.GameObjects.Sprite{
             } else {
                 scene.player.play("idle");
             }
-
-            this.body.setSize(16,17,true)
-            this.body.setOffset(8,5);
         }
 
         // The last thing we do is storing keys pressed on this frame.

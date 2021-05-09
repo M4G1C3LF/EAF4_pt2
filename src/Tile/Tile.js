@@ -4,12 +4,11 @@ export default class Tile extends Phaser.GameObjects.Sprite{
         super(config.scene, config.x, config.y, config.key);
         
         config.scene.tiles.add(this,true);
-        this.body.setSize(colliderSize.x/2, colliderSize.y)
-        this.body.x += colliderSize.x/2;
+        this.body.setSize(tileSize.x/2, tileSize.y)
+        this.body.x += tileSize.x/2;
     }
 }
 const tileSize = { x: 16, y: 16 };
-const colliderSize = { x: 18, y: 18};
 
 function createAnimations(scene){
     //DIRT
