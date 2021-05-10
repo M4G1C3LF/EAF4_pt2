@@ -13,7 +13,7 @@ function generateCollider(scene,deathTile,killPlayer){
     scene.physics.add.collider(scene.player,deathTile, (e => {
         //scene.player.sfxList.pickUp.play();
         
-        killPlayer();
+        killPlayer(scene);
 
      }))
 }

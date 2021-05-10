@@ -2,14 +2,18 @@ function getItem(scene,sceneKey,id){
     scene.gameState.scenes[sceneKey].items[id] = true;
     scene.gameState.itemsCollected++;
 }
-function loadScene(scene,sceneId,startMethod,vector2DtargetSceneSpawn){
-    startMethod(
-        sceneId, 
-        { 
-            gameState: scene.gameState, 
-            vector2DtargetSceneSpawn
-        }
-    )
+function loadSceneWithData(scene,sceneId,vector2DtargetSceneSpawn){
+    scene.music.stop();
+    scene.scene.start(
+            sceneId, 
+            { 
+                gameState: scene.gameState, 
+                vector2DtargetSceneSpawn
+            }
+        )
+}
+function loadScene(scene,sceneId){
+    scene.scene.start(sceneId);
 }
 function registerKeyInput(scene){
     // Register input keys 
@@ -20,4 +24,12 @@ function registerKeyInput(scene){
     };
 }
 
-export { getItem, loadScene, registerKeyInput }
+function killPlayer(scene){
+    scene.gameState.lives--;
+    if (scene.gameState.lives)
+        loadSceneWithData(scene,scene.key,scene.vector2DtargetSceneSpawn);
+    else
+        loadScene(scene,"GameOverScene");
+}
+
+export { killPlayer, getItem, loadScene, loadSceneWithData,registerKeyInput }

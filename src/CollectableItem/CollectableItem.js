@@ -19,8 +19,9 @@ function createAnimations(scene){
 function generateCollider(scene,item,getItem){
     scene.physics.add.collider(scene.player,item, (e => {
         scene.player.sfxList.pickUp.play();
-        getItem(item.id);
+        getItem(scene,scene.key,item.id);
         item.destroy();
+        scene.SetUI(scene,0,130);
         
      }))
 }

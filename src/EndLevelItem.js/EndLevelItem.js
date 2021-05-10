@@ -39,7 +39,7 @@ function generateCollider(scene,item,loadScene){
         destroyItem(item);
         scene.cameras.main.fadeOut(2000, 0, 0, 0);
         scene.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-            loadScene("GameOverScene");
+            loadScene(scene,"GameOverScene");
         })
 
      }))

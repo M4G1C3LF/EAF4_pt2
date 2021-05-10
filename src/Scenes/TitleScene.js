@@ -46,9 +46,7 @@ export default class TitleScene extends Phaser.Scene{
             }
         )
     }
-    keyHandler(){
 
-    }
     startGame(){
         this.scene.start(
             'MainScene',

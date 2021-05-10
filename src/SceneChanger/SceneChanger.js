@@ -10,19 +10,19 @@ export default class SceneChanger extends Phaser.GameObjects.Sprite{
 }
 const tileSize = { x: 16, y: 16 };
 
-function generateCollider(scene,sceneChanger,loadScene,vector2DtargetSceneSpawn){
+function generateCollider(scene,sceneChanger,loadSceneWithData,vector2DtargetSceneSpawn){
     scene.physics.add.collider(scene.player,sceneChanger, (e => {
-        loadScene(sceneChanger.targetSceneKey,vector2DtargetSceneSpawn);
+        loadSceneWithData(scene,sceneChanger.targetSceneKey,vector2DtargetSceneSpawn);
      }))
 }
-function createSceneChanger(scene,x,y,targetSceneKey,loadScene,vector2DtargetSceneSpawn) {
+function createSceneChanger(scene,x,y,targetSceneKey,loadSceneWithData,vector2DtargetSceneSpawn) {
     const sceneChanger = new SceneChanger({
         scene: scene,
         key: targetSceneKey,
         x,
         y
     })
-    generateCollider(scene,sceneChanger,loadScene,vector2DtargetSceneSpawn);
+    generateCollider(scene,sceneChanger,loadSceneWithData,vector2DtargetSceneSpawn);
     
 }
 export { SceneChanger, createSceneChanger }

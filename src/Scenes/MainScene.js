@@ -4,6 +4,7 @@ import { createTile,  tileSize } from '../Tile/Tile';
 import { createCollectableItem } from '../CollectableItem/CollectableItem';
 import { createSceneChanger } from '../SceneChanger/SceneChanger';
 import { createEndLevelItem } from '../EndLevelItem.js/EndLevelItem';
+import { getItem, loadScene, loadSceneWithData, registerKeyInput } from './SceneUtilities';
 
 export default class MainScene extends Phaser.Scene{
 
@@ -11,11 +12,12 @@ export default class MainScene extends Phaser.Scene{
         super({
             key: 'MainScene'
         });
+        this.key = 'MainScene';
 
         //USE IT TO KEEP USING OBJECTS AS this ON PASSING METHOD THROUGH PARAMS
-        this.loadScene = this.loadScene.bind(this);
-        this.getItem = this.getItem.bind(this);
-        this.killPlayer = this.killPlayer.bind(this);
+        //this.loadScene = this.loadScene.bind(this);
+        //this.getItem = this.getItem.bind(this);
+        //this.killPlayer = this.killPlayer.bind(this);
         //this.gameState = this.gameState.bind(this);
     }
     init(data){
@@ -31,28 +33,7 @@ export default class MainScene extends Phaser.Scene{
     preload () {
         this.uiElements = {};
     }
-    getItem(id){
-        this.gameState.scenes[this.scene.key].items[id] = true;
-        this.gameState.itemsCollected++;
-        this.SetUI(this);
-    }
-    killPlayer(){
-        this.gameState.lives--;
-        if (this.gameState.lives)
-            loadScene(this.key,this.vector2DtargetSceneSpawn);
-        else
-            loadScene("GameOverScene");
-    }
-    loadScene(sceneId,vector2DtargetSceneSpawn){
-        this.music.stop();
-        this.scene.start(
-            sceneId, 
-            { 
-                gameState: this.gameState, 
-                vector2DtargetSceneSpawn
-            }
-        )
-    }
+   
     createFloor(scene,x,y){
         createTile(scene,x,y,"dirt/plain");
         createTile(scene,x+tileSize.x,y,"dirt/plain");
@@ -131,8 +112,8 @@ export default class MainScene extends Phaser.Scene{
         createTile(scene,x+tileSize.x,y,"dirt/topBorder");
         createTile(scene,x+(tileSize.x*2),y,"dirt/topBorder");
 
-        createSceneChanger(scene,x-(tileSize.x*1),y+tileSize.y,"SecondScene",this.loadScene,{x: tileSize.x*17, y: tileSize.y*6});
-        createSceneChanger(scene,x-(tileSize.x*1),y-tileSize.y*5,"SecondScene",this.loadScene,{x: tileSize.x*17, y: tileSize.y*1});
+        createSceneChanger(scene,x-(tileSize.x*1),y+tileSize.y,"SecondScene",loadSceneWithData,{x: tileSize.x*17, y: tileSize.y*6});
+        createSceneChanger(scene,x-(tileSize.x*1),y-tileSize.y*5,"SecondScene",loadSceneWithData,{x: tileSize.x*17, y: tileSize.y*1});
         
 
     }
@@ -167,14 +148,7 @@ export default class MainScene extends Phaser.Scene{
         this.createEastWall(scene,(tileSize.x*19),(tileSize.y*6));
 
     }
-    registerKeyInput(){
-        // Register input keys 
-        this.keys = {
-            left: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A),
-            right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
-            crouch: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S),
-        };
-    }
+
     createGroups(){
         //Create static group to fill in all map tiles
         this.tiles = this.physics.add.staticGroup();
@@ -268,7 +242,7 @@ export default class MainScene extends Phaser.Scene{
     create () {
         
         this.SetBGM();
-        this.registerKeyInput();
+        registerKeyInput(this);
         this.createGroups();
         this.setBackground();
         // populate this.player        
@@ -279,12 +253,12 @@ export default class MainScene extends Phaser.Scene{
         );
         
         this.createMap(this);
-        !this.gameState.scenes[this.scene.key].items[0] ? createCollectableItem(0,this,(tileSize.x*11),(tileSize.y*2), this.getItem) : null;
-        !this.gameState.scenes[this.scene.key].items[1] ? createCollectableItem(1,this,(tileSize.x*3),(tileSize.y*1), this.getItem) : null;
-        !this.gameState.scenes[this.scene.key].items[2] ? createCollectableItem(2,this,(tileSize.x*18),(tileSize.y*7), this.getItem) : null;
-        !this.gameState.scenes[this.scene.key].items[3] ? createCollectableItem(3,this,(tileSize.x*2),(tileSize.y*7), this.getItem) : null;
-        !this.gameState.scenes[this.scene.key].items[4] ? createCollectableItem(4,this,(tileSize.x*8),(tileSize.y*4), this.getItem) : null;
-        this.hasAllItems() ? createEndLevelItem(10,this,(tileSize.x*8),(tileSize.y*7), this.loadScene) : null;
+        !this.gameState.scenes[this.scene.key].items[0] ? createCollectableItem(0,this,(tileSize.x*11),(tileSize.y*2), getItem) : null;
+        !this.gameState.scenes[this.scene.key].items[1] ? createCollectableItem(1,this,(tileSize.x*3),(tileSize.y*1), getItem) : null;
+        !this.gameState.scenes[this.scene.key].items[2] ? createCollectableItem(2,this,(tileSize.x*18),(tileSize.y*7), getItem) : null;
+        !this.gameState.scenes[this.scene.key].items[3] ? createCollectableItem(3,this,(tileSize.x*2),(tileSize.y*7), getItem) : null;
+        !this.gameState.scenes[this.scene.key].items[4] ? createCollectableItem(4,this,(tileSize.x*8),(tileSize.y*4), getItem) : null;
+        this.hasAllItems() ? createEndLevelItem(10,this,(tileSize.x*8),(tileSize.y*7), loadScene) : null;
         this.SetUI(this,0,130);
 
 
@@ -294,7 +268,7 @@ export default class MainScene extends Phaser.Scene{
     }
     checkEndOfLevel(){
         if (this.hasAllItems() && !this.gameState.endLevelOnScene){
-            createEndLevelItem(10,this,(tileSize.x*8),(tileSize.y*7), this.loadScene);
+            createEndLevelItem(10,this,(tileSize.x*8),(tileSize.y*7), loadScene);
             this.gameState.endLevelOnScene = true;
         }
     }
