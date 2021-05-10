@@ -1,6 +1,6 @@
-import playerSpriteSheet from './Player/sprites/player.png';
-import tileSpriteSheet from './Tile/sprites/tileSheet.png';
-import collectableItemSpriteSheet from './CollectableItem/sprites/spriteSheet.png';
+import playerSpriteSheet from '../Player/sprites/player.png';
+import tileSpriteSheet from '../Tile/sprites/tileSheet.png';
+import collectableItemSpriteSheet from '../CollectableItem/sprites/spriteSheet.png';
 
 class BootScene extends Phaser.Scene {
     constructor(test) {
@@ -9,6 +9,16 @@ class BootScene extends Phaser.Scene {
         });
     }
     preload() {
+        const progress = this.add.graphics();
+        this.add.text(this.sys.game.config.width / 4,this.sys.game.config.height / 3, "Now Loading...");
+
+        // Register a load progress event to show a load bar
+        this.load.on('progress', (value) => {
+            progress.clear();
+            progress.fillStyle(0xffffff, 1);
+            progress.fillRect(0, this.sys.game.config.height / 2, this.sys.game.config.width * value, 60);
+        });
+
         // Register a load complete event to launch the title screen when all files are loaded
         this.load.on('complete', () => {
             this.scene.start('TitleScene');
