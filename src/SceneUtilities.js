@@ -10,6 +10,7 @@ function loadSceneWithData(scene,sceneId,vector2DtargetSceneSpawn){
         )
 }
 function loadScene(scene,sceneId){
+    scene.music.stop();
     scene.scene.start(sceneId);
 }
 function setBackground(scene,imageKey){
