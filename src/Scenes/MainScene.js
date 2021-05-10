@@ -4,7 +4,7 @@ import { createTile,  tileSize } from '../Tile/Tile';
 import { createCollectableItem } from '../CollectableItem/CollectableItem';
 import { createSceneChanger } from '../SceneChanger/SceneChanger';
 import { createEndLevelItem } from '../EndLevelItem.js/EndLevelItem';
-import { getItem, loadScene, loadSceneWithData, registerKeyInput } from './SceneUtilities';
+import { setUI, setBGM, setBackground, registerKeyInput, createSceneGroups } from '../SceneUtilities';
 
 export default class MainScene extends Phaser.Scene{
 
@@ -14,12 +14,9 @@ export default class MainScene extends Phaser.Scene{
         });
         this.key = 'MainScene';
 
-        //USE IT TO KEEP USING OBJECTS AS this ON PASSING METHOD THROUGH PARAMS
-        //this.loadScene = this.loadScene.bind(this);
-        //this.getItem = this.getItem.bind(this);
-        //this.killPlayer = this.killPlayer.bind(this);
-        //this.gameState = this.gameState.bind(this);
     }
+
+    //Using this method to parse data received on load this scene
     init(data){
         this.gameState = data.gameState;
         this.vector2DtargetSceneSpawn = data.vector2DtargetSceneSpawn;
@@ -28,7 +25,6 @@ export default class MainScene extends Phaser.Scene{
                 items: []
             }
         }
-
     }
     preload () {
         this.uiElements = {};
@@ -112,8 +108,8 @@ export default class MainScene extends Phaser.Scene{
         createTile(scene,x+tileSize.x,y,"dirt/topBorder");
         createTile(scene,x+(tileSize.x*2),y,"dirt/topBorder");
 
-        createSceneChanger(scene,x-(tileSize.x*1),y+tileSize.y,"SecondScene",loadSceneWithData,{x: tileSize.x*17, y: tileSize.y*6});
-        createSceneChanger(scene,x-(tileSize.x*1),y-tileSize.y*5,"SecondScene",loadSceneWithData,{x: tileSize.x*17, y: tileSize.y*1});
+        createSceneChanger(scene,x-(tileSize.x*1),y+tileSize.y,"SecondScene",{x: tileSize.x*17, y: tileSize.y*6});
+        createSceneChanger(scene,x-(tileSize.x*1),y-tileSize.y*5,"SecondScene",{x: tileSize.x*17, y: tileSize.y*1});
         
 
     }
@@ -148,103 +144,13 @@ export default class MainScene extends Phaser.Scene{
         this.createEastWall(scene,(tileSize.x*19),(tileSize.y*6));
 
     }
-
-    createGroups(){
-        //Create static group to fill in all map tiles
-        this.tiles = this.physics.add.staticGroup();
-        //Create static group to fill in all collectable items
-        this.collectableItems = this.physics.add.staticGroup();
-        //Create static group to fill in all SceneChangers
-        this.sceneChangers = this.physics.add.staticGroup();
-
-    }
-    SetBGM(){
-        this.music = this.sound.add('whitenoise');
-        this.music.play({
-            loop: true
-        });
-        
-    }
-    SetUI(scene,x,y){
-        if(!this.uiElements.lives){
-            this.uiElements = { 
-                ...this.uiElements, 
-                lives: {
-                    label: null,
-                    value: null
-                }
-            }
-            this.uiElements.lives.label = scene.add.text(
-                x+20,
-                y, 
-                "Lives:", 
-                {
-                    color: '#FFF',
-                    strokeThickness: 3,
-                    stroke: '#000'
-                }
-            );
-
-            this.uiElements.lives.value = scene.add.text(
-                x+83,
-                y, 
-                scene.gameState.lives, 
-                {
-                    color: '#FFF',
-                    strokeThickness: 3,
-                    stroke: '#000'
-                }
-            );
-
-        } else {
-            this.uiElements.lives.value.setText(scene.gameState.lives);
-        }
-        
-        if (!this.uiElements.itemsCollected){
-            this.uiElements = { 
-                ...this.uiElements, 
-                itemsCollected: {
-                    label: null,
-                    value: null
-                }
-            }
-            this.uiElements.itemsCollected.label = scene.add.text(
-                x+200,
-                y, 
-                'Items:', 
-                {
-                    color: '#FFF',
-                    strokeThickness: 3,
-                    stroke: '#000'
-                }
-            );
-            this.uiElements.itemsCollected.value = scene.add.text(
-                x+262,
-                y, 
-                scene.gameState.itemsCollected, 
-                {
-                    color: '#FFF',
-                    strokeThickness: 3,
-                    stroke: '#000'
-                }
-            );
-        } else {
-            this.uiElements.itemsCollected.value.setText(scene.gameState.itemsCollected);
-        }
-    }
-    setBackground(){
-        this.add.image(
-            this.game.config.width/2,
-            this.game.config.height/2,
-            "background01"
-        ).setScale(0.3,0.22);
-    }
+    
     create () {
         
-        this.SetBGM();
+        setBGM(this);
         registerKeyInput(this);
-        this.createGroups();
-        this.setBackground();
+        createSceneGroups(this);
+        setBackground(this,"background01");
         // populate this.player        
         createPlayer(
             this,
@@ -253,13 +159,13 @@ export default class MainScene extends Phaser.Scene{
         );
         
         this.createMap(this);
-        !this.gameState.scenes[this.scene.key].items[0] ? createCollectableItem(0,this,(tileSize.x*11),(tileSize.y*2), getItem) : null;
-        !this.gameState.scenes[this.scene.key].items[1] ? createCollectableItem(1,this,(tileSize.x*3),(tileSize.y*1), getItem) : null;
-        !this.gameState.scenes[this.scene.key].items[2] ? createCollectableItem(2,this,(tileSize.x*18),(tileSize.y*7), getItem) : null;
-        !this.gameState.scenes[this.scene.key].items[3] ? createCollectableItem(3,this,(tileSize.x*2),(tileSize.y*7), getItem) : null;
-        !this.gameState.scenes[this.scene.key].items[4] ? createCollectableItem(4,this,(tileSize.x*8),(tileSize.y*4), getItem) : null;
-        this.hasAllItems() ? createEndLevelItem(10,this,(tileSize.x*8),(tileSize.y*7), loadScene) : null;
-        this.SetUI(this,0,130);
+        !this.gameState.scenes[this.scene.key].items[0] ? createCollectableItem(0,this,(tileSize.x*11),(tileSize.y*2)) : null;
+        !this.gameState.scenes[this.scene.key].items[1] ? createCollectableItem(1,this,(tileSize.x*3),(tileSize.y*1)) : null;
+        !this.gameState.scenes[this.scene.key].items[2] ? createCollectableItem(2,this,(tileSize.x*18),(tileSize.y*7)) : null;
+        !this.gameState.scenes[this.scene.key].items[3] ? createCollectableItem(3,this,(tileSize.x*2),(tileSize.y*7)) : null;
+        !this.gameState.scenes[this.scene.key].items[4] ? createCollectableItem(4,this,(tileSize.x*8),(tileSize.y*4)) : null;
+        this.hasAllItems() ? createEndLevelItem(10,this,(tileSize.x*8),(tileSize.y*7)) : null;
+        setUI(this,0,130);
 
 
     }
@@ -268,7 +174,7 @@ export default class MainScene extends Phaser.Scene{
     }
     checkEndOfLevel(){
         if (this.hasAllItems() && !this.gameState.endLevelOnScene){
-            createEndLevelItem(10,this,(tileSize.x*8),(tileSize.y*7), loadScene);
+            createEndLevelItem(10,this,(tileSize.x*8),(tileSize.y*7));
             this.gameState.endLevelOnScene = true;
         }
     }

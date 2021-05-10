@@ -1,4 +1,6 @@
 import Phaser from 'phaser';
+import { loadScene } from '../SceneUtilities';
+
 export default class EndLevelItem extends Phaser.GameObjects.Sprite{
     constructor (config) {
         super(config.scene, config.x, config.y, config.key);
@@ -33,7 +35,7 @@ function destroyItem(item){
         if (item.particles) item.particles.destroy();
         item.destroy();
 }
-function generateCollider(scene,item,loadScene){
+function generateCollider(scene,item){
     scene.physics.add.collider(scene.player,item, (e => {
         scene.player.sfxList.pickUp.play();
         destroyItem(item);
@@ -44,7 +46,7 @@ function generateCollider(scene,item,loadScene){
 
      }))
 }
-function createEndLevelItem(id,scene,x,y,getItem) {
+function createEndLevelItem(id,scene,x,y) {
     const item = new EndLevelItem({
         scene: scene,
         key: 'endLevelItem',
@@ -54,7 +56,7 @@ function createEndLevelItem(id,scene,x,y,getItem) {
     });
     createAnimations(scene,item);
     item.play('collectableItem/idle')
-    generateCollider(scene,item,getItem);
+    generateCollider(scene,item);
 
 }
 
